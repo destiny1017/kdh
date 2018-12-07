@@ -10,6 +10,7 @@ public class DataDTO {
 	private int price;
 	private int stock;
 	
+	
 	public DataDTO(String isbn, String classification, String title, String publisher, String writer, int price) {
 		super();
 		this.isbn = isbn;

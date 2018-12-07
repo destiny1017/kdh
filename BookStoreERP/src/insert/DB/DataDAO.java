@@ -5,37 +5,35 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class DataDAO {
 	
-	public void insertStockR() {
+	ArrayList<DataDTO> books = new ArrayList<>();
+	
+	public void insertStock(String book) {
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;
-		ResultSet rs = null;
 		
-		Random ran = new Random();
 		String url = "jdbc:mysql://localhost:3306/erp";
 		String uid = "root";
 		String upw = "1234";
-		String sql1 = "select isbn from books";
-		String sql2 = "insert into books_Stock values(?,?)";
+		String sql = "update books_stock set stock = ? where isbn = ?";
 		
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(url, uid, upw);
-			pstmt = conn.prepareStatement(sql1);			
-			rs = pstmt.executeQuery();
-			pstmt = conn.prepareStatement(sql2);
+			pstmt = conn.prepareStatement(sql);
 			
-			while(rs.next()) {
-					pstmt.setString(1, rs.getString("isbn"));
-					pstmt.setInt(2, ran.nextInt(21));
-					pstmt.executeUpdate();
-			}
-			
+			String[] split = book.split("/");
+			int sum = Integer.parseInt(split[1]) + Integer.parseInt(split[2]);
+			pstmt.setInt(1, sum);
+			pstmt.setString(2, split[0]);
+			pstmt.executeUpdate();
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -51,9 +49,8 @@ public class DataDAO {
 		String uid = "root";
 		String upw = "1234";
 		String sql = "select b.*, bs.stock from books as b join books_stock as bs on b.isbn = bs.isbn";
+		books = new ArrayList<>();
 		
-		ArrayList<DataDTO> books = new ArrayList<>();
-			
 		try {
 			
 			Class.forName("com.mysql.jdbc.Driver");
@@ -70,6 +67,19 @@ public class DataDAO {
 		}
 		
 		return books;
+	}
+	
+	
+	public ArrayList<DataDTO> searchBook(String title) {
+		
+		ArrayList<DataDTO> booksRs = new ArrayList<>();
+		
+		for (int i = 0; i < books.size(); i++) {
+			if(books.get(i).getTitle().indexOf(title) != -1) {
+				booksRs.add(books.get(i));
+			}
+		}	
+		return booksRs;
 	}
 	
 	public void insertSale() {
@@ -109,5 +119,35 @@ public class DataDAO {
 		}
 	}
 	
-	
+//	public ArrayList<DataDTO> searchBook(String title) {
+//		
+//		PreparedStatement pstmt = null;
+//		Connection conn = null;
+//		ResultSet rs = null;
+//		
+//		String url = "jdbc:mysql://localhost:3306/erp";
+//		String uid = "root";
+//		String upw = "1234";
+//		String sql = "select * from books where title like '%" + title + "%'";
+//		
+//		
+//		ArrayList<DataDTO> books = new ArrayList<>();
+//		
+//		try {
+//			
+//			Class.forName("com.mysql.jdbc.Driver");
+//			conn = DriverManager.getConnection(url, uid, upw);
+//			pstmt = conn.prepareStatement(sql);
+//			
+//			rs = pstmt.executeQuery();
+//			while(rs.next()) {
+//				books.add(new DataDTO(rs.getString("ISBN"), rs.getString("classification"), rs.getString("title"), 
+//						rs.getString("publisher"), rs.getString("writer"), rs.getInt("price")));
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return books;
+//	}
 }
