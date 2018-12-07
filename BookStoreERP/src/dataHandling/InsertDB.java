@@ -1,4 +1,4 @@
-package insert.DB;
+package dataHandling;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ public class InsertDB {
 	
 	public void insert(String classification, String[][] data) {
 		
-		DataDTO[] dto = new DataDTO[data.length];
+		StockDTO[] dto = new StockDTO[data.length];
 		
 		for (int i = 0; i < data.length; i++) {
 			String price = data[i][4];
@@ -19,7 +19,7 @@ public class InsertDB {
 			price = s.delete(s.indexOf(","), s.indexOf(",")+1).toString();
 			int intPrice = Integer.parseInt(price);
 			
-			dto[i] = new DataDTO(data[i][1], data[i][3], intPrice, data[i][6], data[i][7]);
+			dto[i] = new StockDTO(data[i][1], data[i][3], intPrice, data[i][6], data[i][7]);
 			System.out.println(i + "번째 dto의 isbn : " + dto[i].getIsbn() + ", title : " + dto[i].getTitle()
 								+ ", writer : " + dto[i].getWriter() + ", publisher : " + dto[i].getPublisher()
 								+ ", price : " + dto[i].getPrice()); 

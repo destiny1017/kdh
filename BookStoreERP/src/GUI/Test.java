@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Test extends JFrame implements ActionListener {
 	
@@ -17,6 +19,8 @@ public class Test extends JFrame implements ActionListener {
 	JPanel pan2 = new JPanel();
 	JButton btn1 = new JButton("패널교체1");
 	JButton btn2 = new JButton("패널교체2");
+	private final JComboBox comboBox = new JComboBox();
+	private final JButton button = new JButton("ㅅ시실싫실해행행");
 	
 	public Test() {
 		
@@ -27,13 +31,19 @@ public class Test extends JFrame implements ActionListener {
 		pan1.add(btn1);
 			
 		mainPan.add(pan1);
-		add(mainPan); //프레임에는 메인패널 하나만 추가된 상태
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"첫번째", "두번째", "세번째"}));
+		
+		pan1.add(comboBox);
+		
+		pan1.add(button);
+		getContentPane().add(mainPan); //프레임에는 메인패널 하나만 추가된 상태
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		
 		btn1.addActionListener(this);	
 		btn2.addActionListener(this);	
+		button.addActionListener(this);
 		
 	}
 	
@@ -43,6 +53,8 @@ public class Test extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		System.out.println(comboBox.getSelectedItem());
 		
 		if(e.getSource() == btn1) {
 			

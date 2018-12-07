@@ -1,4 +1,4 @@
-package insert.DB;
+package dataHandling;
 
 import java.io.Serializable;
 

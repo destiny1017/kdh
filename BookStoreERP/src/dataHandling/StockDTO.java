@@ -1,6 +1,6 @@
-package insert.DB;
+package dataHandling;
 
-public class DataDTO {
+public class StockDTO {
 	
 	private String isbn;
 	private String classification;
@@ -11,7 +11,7 @@ public class DataDTO {
 	private int stock;
 	
 	
-	public DataDTO(String isbn, String classification, String title, String publisher, String writer, int price) {
+	public StockDTO(String isbn, String classification, String title, String publisher, String writer, int price) {
 		super();
 		this.isbn = isbn;
 		this.classification = classification;
@@ -21,7 +21,7 @@ public class DataDTO {
 		this.price = price;
 	}
 	
-	public DataDTO(String isbn, String classification, String title, String publisher, String writer, int price,
+	public StockDTO(String isbn, String classification, String title, String publisher, String writer, int price,
 			int stock) {
 		super();
 		this.isbn = isbn;
@@ -33,7 +33,7 @@ public class DataDTO {
 		this.stock = stock;
 	}
 
-	public DataDTO(String isbn, String title, int price, String writer, String publisher) {
+	public StockDTO(String isbn, String title, int price, String writer, String publisher) {
 		this.isbn = isbn;
 		this.title = title;
 		this.publisher = publisher;

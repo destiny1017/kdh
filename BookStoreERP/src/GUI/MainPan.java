@@ -6,11 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MainPan extends JPanel implements ActionListener {
 
+	JPanel panel = new JPanel();
 	JButton btnOrder = new JButton("발주관리");
 	JButton btnStock = new JButton("재고관리");
 	JButton btnStatistics = new JButton("판매통계");
@@ -20,11 +22,17 @@ public class MainPan extends JPanel implements ActionListener {
 		setSize(1184, 811);
 		setLayout(null);
 		
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
 		panel_1.setBackground(new Color(0, 51, 71));
 		panel_1.setBounds(0, 0, 1184, 811);
 		add(panel_1);
+		
+		panel.setBackground(new Color(235, 235, 235));
+		panel.setBounds(33, 172, 1119, 606);
+		panel_1.add(panel);
+		panel.setLayout(null);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(255, 255, 255, 110));
@@ -86,19 +94,24 @@ public class MainPan extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		JPanel stockPan = new StockPan();
+		StockPan stockPan = StockPan.getInstance();
+		StatisticsPan statisticsPan = StatisticsPan.getInstance();
 		
 		if(e.getSource() == btnOrder) {
 			
 		}else if(e.getSource() == btnStock) {
 			System.out.println("재고관리 누름");
-			removeAll();
-			add(stockPan);
-			revalidate();
-			repaint();
+			panel.removeAll();
+			panel.add(stockPan);
+			panel.revalidate();
+			panel.repaint();
 			
 		}else if(e.getSource() == btnStatistics) {
-			
+			System.out.println("판매통계 누름");
+			panel.removeAll();
+			panel.add(statisticsPan);
+			panel.revalidate();
+			panel.repaint();
 		}
 	}
 

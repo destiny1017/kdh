@@ -1,113 +1,62 @@
 package GUI;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
-import javax.swing.AbstractCellEditor;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.KeyStroke;
 
-import insert.DB.DataDAO;
-import insert.DB.DataDTO;
+import dataHandling.StockDAO;
+import dataHandling.StockDTO;
 
 public class StockPan extends JPanel implements ActionListener {
 
-	JButton btnOrder = new JButton("발주관리");
-	JButton btnStock = new JButton("재고관리");
-	JButton btnStatistics = new JButton("판매통계");
 	JButton searchBtn = new JButton("검색");
 	JButton whBtn = new JButton("입고");
-	JButton removeBtn = new JButton("초기화");
+	JButton btnReturn = new JButton("반품");
+	JButton removeBtn = new JButton("도서삭제");
 	JButton addBtn = new JButton("도서등록");
-	JButton btnWarehousing = new JButton("입고관리");
-	JButton btnBack = new JButton("반품관리");
+	JButton btnSearchOrder = new JButton("발주목록에서 검색");
+	JRadioButton[] rdbtnNewRadioButton = new JRadioButton[5];
+	ButtonGroup group = new ButtonGroup();
 	
-	DataDAO dao = new DataDAO();
+	StockDAO dao = new StockDAO();
 	JPanel panel_7 = new JPanel();
 	JTable table = null;
 	JScrollPane scroll = null;
-	private JTextField searchField;
+	JTextField searchField;
 	
-	ArrayList<DataDTO> books = new ArrayList<>();
+	ArrayList<StockDTO> books = new ArrayList<>();
 	ArrayList<String> insertBooks = new ArrayList<>();
 	Object[][] line;
 	
-	public StockPan() {
+	String select = "제목";
+	
+	private StockPan() {
 		
-		setSize(1184, 811);
+		setBounds(0, 0, 1119, 606);
 		setLayout(null);
-		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBounds(0, 0, 1184, 155);
-		add(panel_4);
-		panel_4.setLayout(null);
-		panel_4.setBackground(new Color(255, 255, 255, 110));
-		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(0, 74, 1184, 81);
-		panel_4.add(panel_5);
-		panel_5.setLayout(null);
-		panel_5.setBackground(new Color(255, 255, 255, 190));
-		
-		btnStock.setFont(new Font("맑은 고딕", Font.BOLD, 24));
-		btnStock.setBackground(new Color(255, 255, 255));
-		btnStock.setBounds(472, 0, 231, 83);
-		btnStock.setBorderPainted(false);
-		btnStock.setFocusPainted(false);
-		panel_5.add(btnStock);
-		panel_5.add(btnOrder);
-		
-		btnOrder.setBackground(new Color(255, 255, 255));
-		btnOrder.setFont(new Font("맑은 고딕", Font.BOLD, 24));
-		btnOrder.setBounds(77, 0, 231, 83);
-		btnOrder.setBorderPainted(false);
-		btnOrder.setFocusPainted(false);
-		btnStatistics.setBounds(874, 1, 231, 81);
-		panel_5.add(btnStatistics);
 
-		btnStatistics.setBackground(new Color(255, 255, 255));
-		btnStatistics.setFont(new Font("맑은 고딕", Font.BOLD, 24));
-		btnStatistics.setBorderPainted(false);
-		btnStatistics.setFocusPainted(false);
-		
-		JLabel label = new JLabel("Bookstore ERP System");
-		label.setBounds(342, 10, 493, 54);
-		panel_4.add(label);
-		label.setForeground(new Color(0, 0, 0));
-		label.setFont(new Font("Bell MT", Font.BOLD, 48));
-
-		JPanel panel_1 = new JPanel();
-		panel_1.setLayout(null);
-		panel_1.setBackground(new Color(0, 51, 71));
-		panel_1.setBounds(0, 0, 1184, 811);
-		add(panel_1);
-		
-		btnWarehousing.setFocusPainted(false);
-		btnWarehousing.setBorderPainted(false);
-		btnWarehousing.setBounds(33, 166, 97, 23);
-		panel_1.add(btnWarehousing);
-		
-		btnBack.setFocusPainted(false);
-		btnBack.setBorderPainted(false);
-		btnBack.setBounds(54, 166, 97, 23);
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(235, 235, 235));
-		panel.setBounds(33, 190, 1119, 588);
-		panel_1.add(panel);
+		panel.setBounds(0, 0, 1119, 606);
+		add(panel);
 		panel.setLayout(null);
 		
 		JPanel panel_6 = new JPanel();
@@ -121,70 +70,80 @@ public class StockPan extends JPanel implements ActionListener {
 		panel_6.add(label_1);
 		
 		searchField = new JTextField();
+		searchField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == e.VK_ENTER) {
+					searchBtn.doClick();
+				}
+			}
+		});
 		searchField.setBounds(73, 0, 147, 22);
 		panel_6.add(searchField);
 		searchField.setColumns(10);
+		searchBtn.setFont(new Font("돋움", Font.BOLD, 12));
 		
 		searchBtn.setBounds(225, 0, 72, 22);
 		panel_6.add(searchBtn);
 		
+		String[] clf = {"제목", "ISBN", "출판사", "저자", "분류"};
+		for (int i = 0; i < rdbtnNewRadioButton.length; i++) {
+			rdbtnNewRadioButton[i] = new JRadioButton(clf[i]);
+			rdbtnNewRadioButton[i].setBounds((310 + i*70), 0, 70, 22);
+			rdbtnNewRadioButton[i].setFont(new Font("맑은 고딕", Font.BOLD, 12));
+			group.add(rdbtnNewRadioButton[i]);
+			panel_6.add(rdbtnNewRadioButton[i]);
+		}
+		rdbtnNewRadioButton[0].setSelected(true);
+		
 		//입고패널
 		panel_7.setBackground(new Color(255, 255, 255));
-		panel_7.setBounds(12, 32, 1095, 517);
+		panel_7.setBounds(12, 32, 1095, 537);
 		panel.add(panel_7);
 		
 		//리스트 출력
 		setList();
 		
-		addBtn.setBounds(814, 555, 97, 23);
+		addBtn.setBounds(814, 573, 97, 23);
 		panel.add(addBtn);
-		whBtn.setBounds(1010, 555, 97, 23);
+		whBtn.setBounds(1010, 573, 97, 23);
 		panel.add(whBtn);
-		removeBtn.setBounds(716, 555, 97, 23);
+		removeBtn.setFont(new Font("돋움", Font.BOLD, 12));
+		removeBtn.setBounds(716, 573, 97, 23);
 		panel.add(removeBtn);
 		
-		JButton btnReturn = new JButton("반품");
-		btnReturn.setBounds(912, 555, 97, 23);
+		btnReturn.setBounds(912, 573, 97, 23);
 		panel.add(btnReturn);
-		addBtn.addActionListener(this);
+		btnSearchOrder.setFont(new Font("돋움체", Font.BOLD, 12));
+		btnSearchOrder.setBounds(551, 573, 163, 23);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(255, 255, 255, 110));
-		panel_2.setBounds(77, 0, 231, 811);
-		panel_1.add(panel_2);
-		panel_2.setLayout(null);
-		panel_2.add(btnBack);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(new Color(255, 255, 255, 110));
-		panel_3.setBounds(875, 0, 231, 811);
-		panel_1.add(panel_3);
-		panel_3.setLayout(null);
+		panel.add(btnSearchOrder);
 		
 		searchBtn.addActionListener(this);
-		btnBack.addActionListener(this);
 		addBtn.addActionListener(this);
+		btnReturn.addActionListener(this);
 		whBtn.addActionListener(this);
+		removeBtn.addActionListener(this);
 		
+		setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if(e.getSource() == btnOrder) {
+		if(e.getActionCommand() == "검색") {
 			
-		}else if(e.getSource() == btnStock) {
-			
-		}else if(e.getSource() == btnStatistics) {
-			
-		}else if(e.getActionCommand() == "검색") {
-			
+			Enumeration<AbstractButton> btns = group.getElements();
+			while(btns.hasMoreElements()) {
+				AbstractButton btn = btns.nextElement();
+				if(btn.isSelected()) {
+					select = btn.getText();
+				}
+			}
 			setList();
-			
+			select = "제목";
 		}else if(e.getActionCommand().equals("입고")) {
 
-			System.out.println("입고누름");
-			
 			int num = 0;
 			for (int i = 0; i < table.getRowCount(); i++) {
 				if(!table.getValueAt(i, 7).equals("")) {
@@ -199,25 +158,45 @@ public class StockPan extends JPanel implements ActionListener {
 				JOptionPane.showMessageDialog(null, "정상적으로 입고되었습니다.");
 				setList();
 			}
-		}else if(e.getActionCommand().equals("도서등록")) {
+		}else if(e.getActionCommand().equals("반품")){
 			
+			int num = 0;
+			for (int i = 0; i < table.getRowCount(); i++) {
+				if(!table.getValueAt(i, 7).equals("")) {
+					int sum = Integer.parseInt((String)table.getValueAt(i, 7));
+					String info = (String) table.getValueAt(i, 0) + "/" + (String) table.getValueAt(i, 6) + "/" +
+							(sum-sum*2);
+					dao.insertStock(info);
+					books = dao.showStock();
+					num++;
+				}
+			}
+			if(num>0) {
+				JOptionPane.showMessageDialog(null, "정상적으로 반품되었습니다.");
+				setList();
+			}
+			
+		}else if(e.getActionCommand().equals("도서등록")) {		
 			new InsertBook();
-			
+		}else if(e.getActionCommand().equals("도서삭제")) {
+			int[] selected = table.getSelectedRows();
+			int del = JOptionPane.showConfirmDialog(null, selected.length + "개 항목을 삭제하시겠습니까?");
+			if(del == 0) {				
+				for (int i = 0; i < selected.length; i++) {		
+					dao.deleteBook((String) table.getValueAt(selected[i], 0));
+				}
+				JOptionPane.showMessageDialog(null, "정상적으로 삭제되었습니다.");
+				setList();
+			}
 		}
 	}
 	
-	public static void main(String[] args) {
-		JFrame f = new JFrame();
-		f.setSize(1200, 850);
-		f.getContentPane().add(new StockPan());
-		f.setVisible(true);
-	}
 	
 	public void setList() {
 		
 		dao.showStock();
-		books = dao.searchBook(searchField.getText());
-		String[] column = {"ISBN", "분류", "제목", "출판사", "저자", "가격", "재고","입고수량"};
+		books = dao.searchBook(select, searchField.getText());
+		String[] column = {"ISBN", "분류", "제목", "출판사", "저자", "가격", "재고","입고/반품수량"};
 		Object[][] line = new Object[books.size()][8];
 		
 		for (int i = 0; i < books.size(); i++) {		
@@ -244,7 +223,7 @@ public class StockPan extends JPanel implements ActionListener {
 		table.getColumnModel().getColumn(6).setPreferredWidth(50);
 		scroll = new JScrollPane(table);
 		
-		scroll.setBounds(0, 0, 1095, 515);
+		scroll.setBounds(0, 0, 1095, 537);
 		
 		panel_7.removeAll();
 		panel_7.add(scroll);
@@ -254,52 +233,9 @@ public class StockPan extends JPanel implements ActionListener {
 		
 	}
 	
-//	class MyTableCellRenderer extends DefaultTableCellRenderer {
-//
-//
-//	    @Override
-//
-//	    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//
-//	    Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-//
-//	    if (!isSelected) {
-//
-//	    if (row == 7) {
-//	        cell.setBackground(new Color(0, 0, 100));
-//	    } else {
-//	        cell.setBackground(Global.convert_Color());
-//	    }
-//
-//	    }
-//
-//	    return cell;
-//
-//	    }
-//
-//	}
-	
-
-	
-	class TableCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
-
-		JSpinner sp;
-
-		public TableCell() {	
-			sp = new JSpinner();
-		}
-
-		public Object getCellEditorValue() {
-			return null;
-		}
-
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-				int row, int column) {
-			return sp;
-		}
-
-		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-			return sp;
-		}
+	private static StockPan pan = new StockPan();
+	public static StockPan getInstance() {
+		return pan;
 	}
+
 }

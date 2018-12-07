@@ -100,11 +100,10 @@ public class Home extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		JPanel mainPan = new MainPan();
 		
 		if(e.getSource() == btnLogin) {
 			getContentPane().removeAll();
-			getContentPane().add(mainPan);
+			getContentPane().add(new MainPan());
 			revalidate();
 			repaint();
 		}

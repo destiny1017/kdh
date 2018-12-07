@@ -1,4 +1,4 @@
-package insert.DB;
+package dataHandling;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,7 +65,7 @@ public class FileDAO {
 		
 		int[] dayOfMomth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 		
-		DataDAO dao = new DataDAO();
+		StockDAO dao = new StockDAO();
 		
 		for (int i = 1; i <= 730; i++) {
 			
