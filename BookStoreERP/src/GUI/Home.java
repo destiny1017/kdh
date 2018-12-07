@@ -10,14 +10,15 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.JPasswordField;
 
 public class Home extends JFrame implements ActionListener {
 	
 	private JTextField textField;
-	private JTextField textField_1;
 	JButton btnLogin = new JButton("Login");
 	JButton btnJoin = new JButton("Join");
 	JPanel testPan = new JPanel();
+	private JPasswordField passwordField;
 
 	public Home() {
 		
@@ -66,11 +67,6 @@ public class Home extends JFrame implements ActionListener {
 		panel_4.add(textField);
 		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(163, 234, 218, 37);
-		panel_4.add(textField_1);
-		
 		btnLogin.setBounds(113, 328, 110, 44);
 		panel_4.add(btnLogin);
 		
@@ -91,6 +87,10 @@ public class Home extends JFrame implements ActionListener {
 		lblNewLabel_1.setFont(new Font("Comic Sans MS", Font.BOLD, 32));
 		lblNewLabel_1.setBounds(175, 45, 146, 58);
 		panel_4.add(lblNewLabel_1);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(163, 233, 218, 37);
+		panel_4.add(passwordField);
 		setVisible(true);
 		
 		btnJoin.addActionListener(this);
