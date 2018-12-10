@@ -2,7 +2,7 @@ package dataHandling;
 
 import java.io.Serializable;
 
-public class FileDTO implements Serializable {
+public class StatisticsDTO implements Serializable {
 
 	private static final long serialVersionUID = -4238858308566145586L;
 	
@@ -12,9 +12,9 @@ public class FileDTO implements Serializable {
 	private int price;
 	private int salesVolume;
 	
-	public FileDTO() {}
+	public StatisticsDTO() {}
 
-	public FileDTO(String isbn, String classification, String title, int price, int salesVolume) {
+	public StatisticsDTO(String isbn, String classification, String title, int price, int salesVolume) {
 		super();
 		this.isbn = isbn;
 		this.classification = classification;

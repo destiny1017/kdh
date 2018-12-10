@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Enumeration;
 import java.util.HashMap;
 
 import javax.swing.JLabel;
@@ -18,9 +19,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import dataHandling.FileDAO;
-import dataHandling.FileDTO;
+import dataHandling.StatisticsDAO;
+import dataHandling.StatisticsDTO;
 
+import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -43,19 +45,35 @@ public class StatisticsPan extends JPanel implements ActionListener {
 	JLabel artLb = new JLabel("");
 	JLabel historyLb = new JLabel("");
 	JLabel dayLb1 = new JLabel("");
-	JLabel dayLb2 = new JLabel("2018년 12월 09일");
-	JButton confirmBtn = new JButton("확인");
-	ButtonGroup group = new ButtonGroup();
+	JLabel dayLb2 = new JLabel("2018년 12월 10일");
+	JTextField choiceDayLb;
+	JTextField periodLb1;
+	JTextField periodLb2;
+	JTextField textField;
 	
-	FileDAO file = new FileDAO();
+	JRadioButton todayRdbtn = new JRadioButton("당일 매출");
+	JRadioButton choiceRdbtn = new JRadioButton("날짜 선택");
+	JRadioButton periodRdbtn = new JRadioButton("기간 지정");
+	JRadioButton monthRdbtn = new JRadioButton("월별");
+	ButtonGroup group = new ButtonGroup();
+	JButton confirmBtn = new JButton("확인");
+	
+	StatisticsDAO file = new StatisticsDAO();
 	
 	Calendar cal = Calendar.getInstance();
 	DecimalFormat f1 = new DecimalFormat("###,###,###,###원");
 	DecimalFormat dayF = new DecimalFormat("00");
 	String today = "" + cal.get(cal.YEAR) + (cal.get(cal.MONTH)+1) + dayF.format(cal.get(cal.DAY_OF_MONTH));
+	String[] comboModel = new String[12];
+	JComboBox<String> monthCombo = new JComboBox<String>();
+	
+	ArrayList<StatisticsDTO> sales;
+	HashMap<String, Integer> clfSales;
+	
 	
 	private StatisticsPan() {
 		
+		//ui세팅
 		setBounds(0, 0, 1119, 606);
 		setLayout(null);
 		
@@ -66,22 +84,21 @@ public class StatisticsPan extends JPanel implements ActionListener {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(12, 8, 214, 586);
-		panel.add(panel_1);
 		panel_1.setLayout(null);
+		panel.add(panel_1);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(128, 128, 128)));
 		panel_3.setBackground(new Color(255, 250, 245));
 		panel_3.setBounds(0, 0, 214, 48);
-		panel_1.add(panel_3);
 		panel_3.setLayout(null);
-		dayLb1.setFont(new Font("돋움", Font.BOLD, 13));
+		panel_1.add(panel_3);
 		
-		dayLb1.setBounds(8, 4, 108, 20);
-		panel_3.add(dayLb1);
+		dayLb1.setFont(new Font("돋움", Font.BOLD, 13));		
 		dayLb2.setFont(new Font("돋움", Font.BOLD, 13));
-		
+		dayLb1.setBounds(8, 4, 108, 20);
 		dayLb2.setBounds(97, 24, 117, 20);
+		panel_3.add(dayLb1);		
 		panel_3.add(dayLb2);
 		
 		JLabel label_8 = new JLabel("~");
@@ -122,9 +139,9 @@ public class StatisticsPan extends JPanel implements ActionListener {
 		JLabel label_6 = new JLabel("역사 :", SwingConstants.RIGHT);
 		label_6.setBounds(22, 198, 57, 15);
 		panel_4.add(label_6);
+		
 		totalLb.setForeground(Color.BLUE);
 		totalLb.setFont(new Font("돋움", Font.BOLD, 14));
-
 		totalLb.setBounds(80, 4, 126, 30);
 		panel_4.add(totalLb);
 
@@ -159,26 +176,22 @@ public class StatisticsPan extends JPanel implements ActionListener {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(232, 8, 875, 28);
-		panel.add(panel_2);
 		panel_2.setLayout(null);
+		panel.add(panel_2);
 		
-		JRadioButton todayRdbtn = new JRadioButton("당일 매출");
 		todayRdbtn.setFont(new Font("맑은 고딕", Font.BOLD, 12));
 		todayRdbtn.setBounds(0, 0, 83, 29);
-		panel_2.add(todayRdbtn);
 		todayRdbtn.setSelected(true);
+		panel_2.add(todayRdbtn);
 		
-		JRadioButton choiceRdbtn = new JRadioButton("날짜 선택");
 		choiceRdbtn.setFont(new Font("맑은 고딕", Font.BOLD, 12));
 		choiceRdbtn.setBounds(87, 0, 83, 29);
 		panel_2.add(choiceRdbtn);
 		
-		JRadioButton periodRdbtn = new JRadioButton("기간 지정");
 		periodRdbtn.setFont(new Font("맑은 고딕", Font.BOLD, 12));
 		periodRdbtn.setBounds(393, 0, 83, 29);
 		panel_2.add(periodRdbtn);
 		
-		JRadioButton monthRdbtn = new JRadioButton("월별");
 		monthRdbtn.setFont(new Font("맑은 고딕", Font.BOLD, 12));
 		monthRdbtn.setBounds(258, 4, 52, 23);
 		panel_2.add(monthRdbtn);
@@ -188,18 +201,20 @@ public class StatisticsPan extends JPanel implements ActionListener {
 		group.add(periodRdbtn);
 		group.add(monthRdbtn);
 		
-		JComboBox<String> monthCombo = new JComboBox<String>();
+		//월별 콤보박스 생성
 		monthCombo.setBackground(new Color(255, 255, 255));
 		monthCombo.setBounds(318, 5, 63, 21);
 		panel_2.add(monthCombo);
 		
-		String[] comboModel = new String[12];
 		for (int i = 0; i < comboModel.length; i++) {
 			comboModel[i] = i+1 + "월";
 		}
 		monthCombo.setModel(new DefaultComboBoxModel<>(comboModel));
 		
+		
+		
 		choiceDayLb = new JTextField();
+		//날짜 입력창에서 엔터칠 시 확인버튼 클릭
 		choiceDayLb.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -210,9 +225,8 @@ public class StatisticsPan extends JPanel implements ActionListener {
 		});
 		
 		choiceDayLb.setBounds(170, 4, 76, 22);
-		panel_2.add(choiceDayLb);
 		choiceDayLb.setColumns(10);
-		
+		panel_2.add(choiceDayLb);
 		
 		periodLb1 = new JTextField();
 		periodLb1.setColumns(10);
@@ -228,9 +242,9 @@ public class StatisticsPan extends JPanel implements ActionListener {
 		label_7.setBounds(558, 8, 14, 15);
 		panel_2.add(label_7);
 		
-		choiceDayLb.setText(today);
-		
-		setList();
+		sales = file.fileLoad(today);
+		clfSales = file.classificatonSale(today);	
+		setList();	//최초에는 당일 매출로 테이블 세팅
 		choiceDayLb.setText("");
 		
 		confirmBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 11));
@@ -245,31 +259,84 @@ public class StatisticsPan extends JPanel implements ActionListener {
 		textField = new JTextField();
 		textField.setColumns(10);
 		textField.setBounds(689, 4, 97, 22);
-		panel_2.add(textField);
-		
-		
+		panel_2.add(textField);	
 		
 		panel_5.setBounds(232, 42, 875, 554);
 		panel.add(panel_5);
 		
+		choiceDayLb.setEnabled(false);
+		periodLb1.setEnabled(false);
+		periodLb2.setEnabled(false);
+		monthCombo.setEnabled(false);
+		
 		confirmBtn.addActionListener(this);
+		choiceRdbtn.addActionListener(this);
+		todayRdbtn.addActionListener(this);
+		periodRdbtn.addActionListener(this);
+		monthRdbtn.addActionListener(this);
 		
 	}
 
+	String select = "";
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if(e.getActionCommand().equals("확인")) {
+		
+		
+		Enumeration<AbstractButton> btns = group.getElements();
+		while(btns.hasMoreElements()) {
+			AbstractButton btn = btns.nextElement();
+			if(btn.isSelected()) {
+				select = btn.getText();
+			}
+		}
+		
+		if(e.getSource() == choiceRdbtn) {
+			choiceDayLb.setEnabled(true);
+			periodLb1.setEnabled(false);
+			periodLb2.setEnabled(false);
+			monthCombo.setEnabled(false);		
+		}else if(e.getSource() == periodRdbtn) {
+			choiceDayLb.setEnabled(false);
+			periodLb1.setEnabled(true);
+			periodLb2.setEnabled(true);
+			monthCombo.setEnabled(false);		
+		}else if(e.getSource() == monthRdbtn) {
+			choiceDayLb.setEnabled(false);
+			periodLb1.setEnabled(false);
+			periodLb2.setEnabled(false);
+			monthCombo.setEnabled(true);		
+		}
 			
-			setList();
+		if(e.getActionCommand().equals("확인")) {
+			if(select.equals("당일 매출")) {
+				
+				choiceDayLb.setText(today);		
+				setList();	//당일 매출로 테이블 세팅
+				choiceDayLb.setText("");
+				
+			}else if(select.equals("날짜 선택")) {
+				
+				sales = file.fileLoad(choiceDayLb.getText());
+				clfSales = file.classificatonSale(choiceDayLb.getText());
+				setList();
+				
+			}else if(select.equals("월별")) {
+				
+				String date = comboModel[monthCombo.getSelectedIndex()];
+				System.out.println(date);
+				
+			}else if(select.equals("기간 지정")) {
+				
+			}
+			
 		}
 		
 	}
 	
+	//변경사항시마다 리스트를 새로고침해줄 메서드
 	public void setList() {
 		
-		ArrayList<FileDTO> sales = file.fileLoad(choiceDayLb.getText());
-		HashMap<String, Integer> clfSales = file.classificatonSale(choiceDayLb.getText());
 		String[] column = {"ISBN", "분류", "제목", "가격", "판매량", "총 판매액"};
 		String[][] row = new String[sales.size()][6];
 		
@@ -316,11 +383,8 @@ public class StatisticsPan extends JPanel implements ActionListener {
 		
 	}
 	
+	//객체 싱글톤 패턴으로 생성
 	private static StatisticsPan pan = new StatisticsPan();
-	private JTextField choiceDayLb;
-	private JTextField periodLb1;
-	private JTextField periodLb2;
-	private JTextField textField;
 	public static StatisticsPan getInstance() {
 		return pan;
 	}

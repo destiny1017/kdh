@@ -19,9 +19,9 @@ public class MainPan extends JPanel implements ActionListener {
 	
 	public MainPan() {
 		
+		//ui세팅
 		setSize(1184, 811);
 		setLayout(null);
-		
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
@@ -44,7 +44,7 @@ public class MainPan extends JPanel implements ActionListener {
 		panel_3.setBackground(new Color(255, 255, 255, 110));
 		panel_3.setBounds(875, 0, 231, 811);
 		panel_1.add(panel_3);
-		panel_3.setLayout(null);		
+		panel_3.setLayout(null);
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setLayout(null);
@@ -96,7 +96,7 @@ public class MainPan extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		
+		//각 메뉴 클릭 시 액션처리
 		if(e.getSource() == btnOrder) {
 			
 		}else if(e.getSource() == btnStock) {

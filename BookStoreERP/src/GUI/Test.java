@@ -29,7 +29,7 @@ public class Test extends JFrame implements ActionListener {
 		pan1.setLayout(new GridLayout(2, 1));
 		pan1.add(new JLabel("1번 패널"));
 		pan1.add(btn1);
-			
+		
 		mainPan.add(pan1);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"첫번째", "두번째", "세번째"}));
 		
@@ -44,7 +44,6 @@ public class Test extends JFrame implements ActionListener {
 		btn1.addActionListener(this);	
 		btn2.addActionListener(this);	
 		button.addActionListener(this);
-		
 	}
 	
 	public static void main(String[] args) {

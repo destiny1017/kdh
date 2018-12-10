@@ -13,17 +13,17 @@ import java.awt.Font;
 import javax.swing.JPasswordField;
 
 public class Home extends JFrame implements ActionListener {
-	
+
 	private JTextField textField;
+	private JPasswordField passwordField;
 	JButton btnLogin = new JButton("Login");
 	JButton btnJoin = new JButton("Join");
 	JPanel testPan = new JPanel();
-	private JPasswordField passwordField;
 
 	public Home() {
 		
-		setSize(1200,850);
-		
+		//UI세팅
+		setSize(1200,850);	
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -100,12 +100,14 @@ public class Home extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		
+		//login/join 버튼 클릭 시 액션
 		if(e.getSource() == btnLogin) {
-			getContentPane().removeAll();
-			getContentPane().add(new MainPan());
-			revalidate();
+			getContentPane().removeAll();	//프레임 내의 컴포넌트를 모두 삭제
+			getContentPane().add(new MainPan());	//메인메뉴 패널을 추가
+			revalidate();	//변경 내용으로 새로고침
 			repaint();
+		}else if(e.getSource() == btnJoin) {
+			
 		}
 	}
 	

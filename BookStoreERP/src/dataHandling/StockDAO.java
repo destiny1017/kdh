@@ -14,6 +14,7 @@ public class StockDAO {
 	
 	ArrayList<StockDTO> books = new ArrayList<>();
 	
+	//재고입력 메서드
 	public void insertStock(String book) {
 		
 		PreparedStatement pstmt = null;
@@ -41,6 +42,7 @@ public class StockDAO {
 		}
 	}
 	
+	//전체 도서 리스트를 불러오는 메서드
 	public ArrayList<StockDTO> showStock() {
 		
 		PreparedStatement pstmt = null;
@@ -70,7 +72,7 @@ public class StockDAO {
 		return books;
 	}
 	
-	
+	//도서 검색 메서드
 	public ArrayList<StockDTO> searchBook(String column, String content) {
 		
 		ArrayList<StockDTO> booksRs = new ArrayList<>();
@@ -107,6 +109,7 @@ public class StockDAO {
 		return booksRs;
 	}
 	
+	//판매량 입력 메서드(테스트용)
 	public void insertSale() {
 		
 		PreparedStatement pstmt = null;
@@ -137,22 +140,22 @@ public class StockDAO {
 				pstmt.setString(1, rs.getString("isbn"));
 				switch(rs.getString("classification")) {
 				case "사회정치":
-					pstmt.setInt(2, ran.nextInt(20));
+					pstmt.setInt(2, ran.nextInt(ran.nextInt(5)+13));
 					break;
 				case "경제경영":
-					pstmt.setInt(2, ran.nextInt(12));
+					pstmt.setInt(2, ran.nextInt(ran.nextInt(4)+10));
 					break;
 				case "자연과학":
-					pstmt.setInt(2, ran.nextInt(10));
+					pstmt.setInt(2, ran.nextInt(ran.nextInt(5)+9));
 					break;
 				case "수험서":
-					pstmt.setInt(2, ran.nextInt(8));
+					pstmt.setInt(2, ran.nextInt(ran.nextInt(3)+6));
 					break;
 				case "예술":
-					pstmt.setInt(2, ran.nextInt(7));
+					pstmt.setInt(2, ran.nextInt(ran.nextInt(5)+7));
 					break;
 				case "역사":
-					pstmt.setInt(2, ran.nextInt(14));
+					pstmt.setInt(2, ran.nextInt(ran.nextInt(6)+11));
 					break;
 				}
 				
@@ -164,6 +167,7 @@ public class StockDAO {
 		}
 	}
 	
+	//도서 등록 메서드
 	public int addBook(StockDTO dto) {
 		
 		PreparedStatement pstmt = null;
@@ -205,6 +209,7 @@ public class StockDAO {
 		return JOptionPane.showConfirmDialog(null, "정상적으로 등록되었습니다. 바로 입고를 진행하시겠습니까?");
 	}
 	
+	//도서 삭제 메서드
 	public void deleteBook(String isbn) {
 		
 		PreparedStatement pstmt = null;

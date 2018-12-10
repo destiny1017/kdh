@@ -1,29 +1,29 @@
 package GUI;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import dataHandling.StockDAO;
 import dataHandling.StockDTO;
 
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
 public class InsertBook extends JFrame implements ActionListener {
 	
 	JComboBox comboBox = new JComboBox();
-	JButton btnNewButton = new JButton("등록");
-	JButton button = new JButton("취소");
+	JButton addBtn = new JButton("등록");
+	JButton cancelBtn = new JButton("취소");
 	private JTextField textField;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -31,8 +31,8 @@ public class InsertBook extends JFrame implements ActionListener {
 	private JTextField textField_5;
 
 	public InsertBook() {
-		setBounds(400,300,500,424);
 		
+		setBounds(400,300,500,424);	
 		getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -59,9 +59,9 @@ public class InsertBook extends JFrame implements ActionListener {
 		
 		textField = new JTextField();
 		textField.setBounds(96, 32, 326, 24);
-		panel_1.add(textField);
 		textField.setColumns(10);
-		
+		panel_1.add(textField);
+				
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(245, 245, 245));
 		panel_2.setBounds(12, 10, 436, 301);
@@ -72,6 +72,11 @@ public class InsertBook extends JFrame implements ActionListener {
 		label_1.setFont(new Font("굴림", Font.PLAIN, 14));
 		label_1.setBounds(12, 58, 60, 24);
 		panel_2.add(label_1);
+		
+		//콤보박스 내용 세팅
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"사회정치", "경제경영", "역사", "자연과학", "예술", "수험서"}));
+		comboBox.setBounds(84, 58, 92, 24);
+		panel_2.add(comboBox);
 		
 		JLabel label_2 = new JLabel("제목 :", SwingConstants.RIGHT);
 		label_2.setFont(new Font("굴림", Font.PLAIN, 14));
@@ -109,11 +114,12 @@ public class InsertBook extends JFrame implements ActionListener {
 		panel_2.add(label_5);
 		
 		textField_5 = new JTextField();
+		//가격 텍스트필드에서 엔터 입력 시 등록 클릭 실행
 		textField_5.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == e.VK_ENTER) {
-					btnNewButton.doClick();					
+					addBtn.doClick();					
 				}
 			}
 		});
@@ -121,37 +127,41 @@ public class InsertBook extends JFrame implements ActionListener {
 		textField_5.setBounds(84, 194, 326, 24);
 		panel_2.add(textField_5);
 		
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"사회정치", "경제경영", "역사", "자연과학", "예술", "수험서"}));
-		comboBox.setBounds(84, 58, 92, 24);
-		panel_2.add(comboBox);
 		
-		btnNewButton.setBounds(106, 243, 104, 37);
-		panel_2.add(btnNewButton);
+		addBtn.setBounds(106, 243, 104, 37);
+		panel_2.add(addBtn);
 		
-		button.setBounds(232, 243, 104, 37);
-		panel_2.add(button);
+		cancelBtn.setBounds(232, 243, 104, 37);
+		panel_2.add(cancelBtn);
 		setVisible(true);
 		
-		btnNewButton.addActionListener(this);
-		button.addActionListener(this);
+		addBtn.addActionListener(this);
+		cancelBtn.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if(e.getSource() == btnNewButton) {
+		if(e.getSource() == addBtn) {
+			
+			//입력한 내용을 불러와서 dto클래스객체 생성
 			StockDTO dto = new StockDTO(textField.getText(), (String)comboBox.getSelectedItem(),
 					textField_2.getText(), textField_3.getText(), textField_4.getText(),
 					Integer.parseInt(textField_5.getText()));
+			
+			//도서등록 메서드 실행 후 바로입고 진행 선택여부 result에 저장
 			int result = new StockDAO().addBook(dto);
 			
+			//stock클래스 받아오기
 			StockPan stock = StockPan.getInstance();
+			//바로입고 진행 시 검색창에 등록한 도서제목 세팅 후 검색진행
 			if(result == 0) {
 				stock.searchField.setText(textField_2.getText());
 			}
 			stock.setList();
 			setVisible(false);
-		}else if(e.getSource() == button) {
+			
+		}else if(e.getSource() == cancelBtn) {
 			setVisible(false);
 		}
 		
