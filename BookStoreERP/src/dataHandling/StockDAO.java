@@ -117,7 +117,8 @@ public class StockDAO {
 		String uid = "root";
 		String upw = "1234";
 		String sql1 = "delete from total_sale";
-		String sql2 = "select * from books_stock";
+		String sql2 = "select books.isbn, books.classification, books_stock.stock from books, books_stock"
+				+ " where books.isbn = books_stock.isbn";
 		String sql3 = "insert into total_sale values(?,?)";
 		Random ran = new Random();
 		
@@ -134,7 +135,26 @@ public class StockDAO {
 			while(rs.next()) {
 				
 				pstmt.setString(1, rs.getString("isbn"));
-				pstmt.setInt(2, ran.nextInt(20));
+				switch(rs.getString("classification")) {
+				case "사회정치":
+					pstmt.setInt(2, ran.nextInt(20));
+					break;
+				case "경제경영":
+					pstmt.setInt(2, ran.nextInt(12));
+					break;
+				case "자연과학":
+					pstmt.setInt(2, ran.nextInt(10));
+					break;
+				case "수험서":
+					pstmt.setInt(2, ran.nextInt(8));
+					break;
+				case "예술":
+					pstmt.setInt(2, ran.nextInt(7));
+					break;
+				case "역사":
+					pstmt.setInt(2, ran.nextInt(14));
+					break;
+				}
 				
 				pstmt.executeUpdate();
 			}

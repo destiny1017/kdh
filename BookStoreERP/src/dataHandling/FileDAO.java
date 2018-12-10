@@ -12,7 +12,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 public class FileDAO {
+	
+	ArrayList<FileDTO> file = new ArrayList<>();
+	HashMap<String, Integer> total = new HashMap<>();	
 	
 	public void fileSave(String date) {
 
@@ -20,7 +25,7 @@ public class FileDAO {
 		Connection conn = null;
 		ResultSet rs = null;
 		
-		ArrayList<FileDTO> file = new ArrayList<>();
+		ArrayList<FileDTO> fileSave = new ArrayList<>();
 		String url = "jdbc:mysql://localhost:3306/erp";
 		String uid = "root";
 		String upw = "1234";
@@ -45,11 +50,11 @@ public class FileDAO {
 					String title = rs.getString("title");
 					int price = rs.getInt("price");
 					int salesVolume = rs.getInt("salesVolume");
-					file.add(new FileDTO(isbn, classification, title, price, salesVolume));
+					fileSave.add(new FileDTO(isbn, classification, title, price, salesVolume));
 				}				
 			}
 			
-			oos.writeObject(file);
+			oos.writeObject(fileSave);
 			oos.close();
 			
 		} catch (Exception e) {
@@ -59,17 +64,17 @@ public class FileDAO {
 	
 	public void fileSaveYear() {
 			
-		int year = 2017;
-		int month = 0;
-		int day = 1;
+		int year = 2018;
+		int month = 11;
+		int day = 5;
 		
 		int[] dayOfMomth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 		
 		StockDAO dao = new StockDAO();
 		
-		for (int i = 1; i <= 730; i++) {
+		for (int i = 1; i <= 3; i++) {
 			
-			String date = year + "-" + (month+1) + "-" + day;
+			String date = "" + year + (month+1) + "0" + day;
 			
 			dao.insertSale();
 			fileSave(date);
@@ -86,31 +91,19 @@ public class FileDAO {
 		}
 	}
 	
-	public void fileLoad(String date) {
-		
-		ArrayList<FileDTO> file = new ArrayList<>();
-		
+	public ArrayList<FileDTO> fileLoad(String date) {
+			
 		try {
 			
-			FileInputStream fis = new FileInputStream(new File(date + ".list"));
+			FileInputStream fis = new FileInputStream(new File("SaleData/" + date + ".list"));
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			
 			file = (ArrayList<FileDTO>) ois.readObject();
 			
-			for (int i = 0; i < file.size(); i++) {
-				String isbn = file.get(i).getIsbn();
-				String classification = file.get(i).getClassification();
-				String title = file.get(i).getTitle();
-				int price = file.get(i).getPrice();
-				int salesVolume = file.get(i).getSalesVolume();
-				
-				System.out.println("ISBN : " + isbn + ", 분류 : " + classification + ", 제목 : " + title
-						+ ", 가격 : " + price + ", 판매량 : " + salesVolume);
-			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return file;
 	}
 	
 	public HashMap<String, Integer> classificatonSale(String date) {
@@ -121,7 +114,6 @@ public class FileDAO {
 		ArrayList<FileDTO> science = new ArrayList<>();				
 		ArrayList<FileDTO> art = new ArrayList<>();				
 		ArrayList<FileDTO> examination = new ArrayList<>();
-		HashMap<String, Integer> total = new HashMap<>();	
 		
 		try {
 			
@@ -140,27 +132,27 @@ public class FileDAO {
 				switch (sale.get(i).getClassification()) {
 				case "사회정치":
 					society.add(sale.get(i));
-					total.put("사회정치", total.get("사회정치") + sale.get(i).getPrice());
+					total.put("사회정치", total.get("사회정치") + (sale.get(i).getPrice() * sale.get(i).getSalesVolume()));
 					break;
 				case "경제경영":
 					economy.add(sale.get(i));
-					total.put("경제경영", total.get("경제경영") + sale.get(i).getPrice());
+					total.put("경제경영", total.get("경제경영") + (sale.get(i).getPrice() * sale.get(i).getSalesVolume()));
 					break;
 				case "역사":
 					history.add(sale.get(i));
-					total.put("역사", total.get("역사") + sale.get(i).getPrice());
+					total.put("역사", total.get("역사") + (sale.get(i).getPrice() * sale.get(i).getSalesVolume()));
 					break;
 				case "자연과학":
 					science.add(sale.get(i));
-					total.put("자연과학", total.get("자연과학") + sale.get(i).getPrice());
+					total.put("자연과학", total.get("자연과학") + (sale.get(i).getPrice() * sale.get(i).getSalesVolume()));
 					break;
 				case "예술":
 					art.add(sale.get(i));
-					total.put("예술", total.get("예술") + sale.get(i).getPrice());
+					total.put("예술", total.get("예술") + (sale.get(i).getPrice() * sale.get(i).getSalesVolume()));
 					break;
 				case "수험서":
 					examination.add(sale.get(i));
-					total.put("수험서", total.get("수험서") + sale.get(i).getPrice());
+					total.put("수험서", total.get("수험서") + (sale.get(i).getPrice() * sale.get(i).getSalesVolume()));
 					break;
 				}
 			}		

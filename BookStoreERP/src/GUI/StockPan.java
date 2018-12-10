@@ -156,7 +156,7 @@ public class StockPan extends JPanel implements ActionListener {
 			}
 			if(num>0) {
 				JOptionPane.showMessageDialog(null, "정상적으로 입고되었습니다.");
-				setList();
+				searchBtn.doClick();
 			}
 		}else if(e.getActionCommand().equals("반품")){
 			
@@ -173,7 +173,7 @@ public class StockPan extends JPanel implements ActionListener {
 			}
 			if(num>0) {
 				JOptionPane.showMessageDialog(null, "정상적으로 반품되었습니다.");
-				setList();
+				searchBtn.doClick();
 			}
 			
 		}else if(e.getActionCommand().equals("도서등록")) {		

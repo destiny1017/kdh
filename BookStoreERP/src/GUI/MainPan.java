@@ -48,21 +48,21 @@ public class MainPan extends JPanel implements ActionListener {
 		
 		JPanel panel_4 = new JPanel();
 		panel_4.setLayout(null);
-		panel_4.setBackground(new Color(255, 255, 255, 110));
+		panel_4.setBackground(new Color(255, 255, 255, 0));
 		panel_4.setBounds(0, 0, 1184, 155);
 		panel_1.add(panel_4);
 		
 		JLabel label = new JLabel("Bookstore ERP System");
 		label.setForeground(new Color(255, 255, 255));
-		label.setFont(new Font("Bell MT", Font.BOLD, 48));
-		label.setBounds(340, 10, 493, 54);
+		label.setFont(new Font("Arial", Font.BOLD, 44));
+		label.setBounds(340, 10, 500, 54);
 		panel_4.add(label);
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBounds(0, 74, 1184, 81);
 		panel_4.add(panel_5);
 		panel_5.setLayout(null);
-		panel_5.setBackground(new Color(255, 255, 255, 190));
+		panel_5.setBackground(new Color(255, 255, 255, 110));
 		
 		btnOrder.setBackground(new Color(255, 255, 255));
 		btnOrder.setFont(new Font("맑은 고딕", Font.BOLD, 24));
@@ -90,12 +90,12 @@ public class MainPan extends JPanel implements ActionListener {
 		btnStatistics.addActionListener(this);
 		
 	}
+	StockPan stockPan = StockPan.getInstance();
+	StatisticsPan statisticsPan = StatisticsPan.getInstance();
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		StockPan stockPan = StockPan.getInstance();
-		StatisticsPan statisticsPan = StatisticsPan.getInstance();
 		
 		if(e.getSource() == btnOrder) {
 			

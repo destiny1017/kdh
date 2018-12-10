@@ -52,8 +52,8 @@ public class Home extends JFrame implements ActionListener {
 		
 		JLabel lblNewLabel_2 = new JLabel("Bookstore ERP System");
 		lblNewLabel_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_2.setFont(new Font("Bell MT", Font.BOLD, 48));
-		lblNewLabel_2.setBounds(339, 39, 493, 101);
+		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 48));
+		lblNewLabel_2.setBounds(322, 39, 535, 101);
 		panel_3.add(lblNewLabel_2);
 		
 		JPanel panel_4 = new JPanel();
