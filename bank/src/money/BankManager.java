@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 
 public class BankManager extends JFrame implements ActionListener {
 	
+	//컴포넌트 세팅
 	JPanel panel1 = new JPanel();
 	JPanel pan1 = new JPanel();
 	JButton searchBtn = new JButton("검색");
@@ -24,9 +25,12 @@ public class BankManager extends JFrame implements ActionListener {
 	JButton refreshBtn = new JButton("갱신");
 	JTextField searchField = new JTextField();
 	
+	//crud기능을 수행할 dao객체 생성
 	BankDAO dao = new BankDAO();
+	//회원정보를 받아올 리스트 객체 생성
 	ArrayList<BankDTO> list = dao.list();
 	
+	//J테이블 추가를 위한 변수 선언
 	String[] column = {"ID","이름","나이","연락처"};
 	String[][] row;
 	JTable table;
@@ -34,6 +38,7 @@ public class BankManager extends JFrame implements ActionListener {
 	
 	public BankManager() {
 		
+		//UI세팅
 		setSize(500,500);
 		getContentPane().add(pan1);
 		pan1.setLayout(null);
@@ -72,11 +77,13 @@ public class BankManager extends JFrame implements ActionListener {
 		searchBtn.setBounds(117, 428, 63, 23);
 		pan1.add(searchBtn);	
 		
+		//프로그램 시작과 동시에 전체 회원 리스트를 받아와서 JTable에 세팅
 		setList();
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		
+		//버튼별 액션리스너 설정
 		searchBtn.addActionListener(this);
 		insertBtn.addActionListener(this);
 		modBtn.addActionListener(this);
@@ -92,25 +99,27 @@ public class BankManager extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == insertBtn) {
-			new Insert();
+			new Insert(); //회원정보 입력 클래스 객체 생성
 		}else if(e.getSource() == modBtn) {
-			new Modify();
+			new Modify(); //회원정보 수정 클래스 객체 생성
 		}else if(e.getSource() == delBtn) {
-			String id = (String) table.getValueAt(table.getSelectedRow(), 0);
-			dao.delete(id);
+			String id = (String) table.getValueAt(table.getSelectedRow(), 0); //선택된 행의 id값을 가져옴
+			dao.delete(id); //삭제메서드에 id를 매개변수로 넘겨줌
 		}else if(e.getSource() == refreshBtn) {
-			list = dao.list();
-			setList();
+			list = dao.list(); //현재 리스트의 값을 전체회원 정보로 갱신
+			setList(); //갱신된 리스트를 jtable에 세팅
 		}else if(e.getSource() == searchBtn) {
-			list = dao.search(searchField.getText());
-			setList();
+			list = dao.search(searchField.getText()); //현재 리스트의 값을 검색창에 입력된 회원의 리스트로 갱신
+			setList(); //갱신된 리스트를 jtable에 세팅
 		}
 	}
 	
+	//jtable의 값을 갱신해줄 메서드 선언
 	public void setList() {
 		
 		row = new String[list.size()][4];
 		
+		//전역변수 리스트에 담긴 회원정보의 수만큼 jtable의 열 세팅 반복
 		for (int i = 0; i < row.length; i++) {
 			row[i][0] = list.get(i).getId();
 			row[i][1] = list.get(i).getName();
@@ -118,10 +127,12 @@ public class BankManager extends JFrame implements ActionListener {
 			row[i][3] = list.get(i).getTel();
 		}
 		
+		//j테이블 세팅
 		table = new JTable(row, column);
 		scroll = new JScrollPane(table);
 		scroll.setBounds(0, 0, 460, 353);
 		
+		//패널안의 컴포넌트 모두 삭제 후 스크롤 추가
 		panel1.removeAll();
 		panel1.setLayout(null);
 		panel1.add(scroll);
@@ -130,17 +141,19 @@ public class BankManager extends JFrame implements ActionListener {
 		
 	}
 
-	
-	class Insert extends JFrame implements ActionListener {
+	//회원정보 입력 클래스
+	class Insert extends JFrame {
+		
 		private JTextField idField;
 		private JTextField nameField;
 		private JTextField ageField;
 		private JTextField telField;
 		
 		BankDAO dao = new BankDAO();
-
+		
 		public Insert() {
 			
+			//UI세팅
 			setSize(300,259);
 			setLayout(null);
 			
@@ -199,23 +212,26 @@ public class BankManager extends JFrame implements ActionListener {
 			add(btnNewButton);
 			setVisible(true);
 			
-			btnNewButton.addActionListener(this);
+			//액션리스너 설정
+			btnNewButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					//등록버튼 클릭 시 텍스트필드의 내용을 가져와서 DTO객체화하고, 이것을 매개변수로 회원등록 메서드 호출
+					dao.insert(new BankDTO(idField.getText(), nameField.getText(), 
+							Integer.parseInt(ageField.getText()), telField.getText()));
+					
+				}
+			});
 		}
 		
 		public void main(String[] args) {
 			new Insert();
 		}
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-			dao.insert(new BankDTO(idField.getText(), nameField.getText(), 
-					Integer.parseInt(ageField.getText()), telField.getText()));
-		}
-
 	}
 	
-	class Modify extends JFrame implements ActionListener {
+	class Modify extends JFrame {
 
 		private JTextField idField;
 		private JTextField nameField;
@@ -226,6 +242,7 @@ public class BankManager extends JFrame implements ActionListener {
 
 		public Modify() {
 			
+			//UI세팅
 			setSize(300,259);
 			setLayout(null);
 			
@@ -284,18 +301,21 @@ public class BankManager extends JFrame implements ActionListener {
 			add(btnNewButton);
 			setVisible(true);
 			
-			btnNewButton.addActionListener(this);
+			//액션리스너 설정
+			btnNewButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					//수정버튼 클릭 시 텍스트필드의 내용을 가져와서 DTO객체화하고, 이것을 매개변수로 회원수정 메서드 호출
+					dao.modify(new BankDTO(idField.getText(), nameField.getText(), 
+							Integer.parseInt(ageField.getText()), telField.getText()));
+					
+				}
+			});
 		}
 		
 		public void main(String[] args) {
 			new Modify();
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			
-			dao.modify(new BankDTO(idField.getText(), nameField.getText(), 
-					Integer.parseInt(ageField.getText()), telField.getText()));
 		}
 
 	}
