@@ -100,14 +100,12 @@ public class MainPan extends JPanel implements ActionListener {
 		if(e.getSource() == btnOrder) {
 			
 		}else if(e.getSource() == btnStock) {
-			System.out.println("재고관리 누름");
 			panel.removeAll();
 			panel.add(stockPan);
 			panel.revalidate();
 			panel.repaint();
 			
 		}else if(e.getSource() == btnStatistics) {
-			System.out.println("판매통계 누름");
 			panel.removeAll();
 			panel.add(statisticsPan);
 			panel.revalidate();

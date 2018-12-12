@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -23,7 +24,18 @@ public class enabletest extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		new enabletest();
+		
+		HashMap<Integer, Integer> map = new HashMap<>();
+		
+		map.put(1, map.get(1) + 123);
+		map.put(2, 123);
+		map.put(3, 123);
+		map.put(1, 200);
+		
+		System.out.println(map.get(1));
+		System.out.println(map.get(2));
+		System.out.println(map.get(3));
+		
 	}
 
 }
