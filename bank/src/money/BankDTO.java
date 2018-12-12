@@ -7,6 +7,12 @@ public class BankDTO {
 	private int age;
 	private String tel;
 	
+	public BankDTO(String id, String tel) {
+		super();
+		this.id = id;
+		this.tel = tel;
+	}
+
 	public BankDTO(String id, String name, int age, String tel) {
 		super();
 		this.id = id;

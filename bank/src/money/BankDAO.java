@@ -48,7 +48,7 @@ public class BankDAO {
 		String url = "jdbc:mysql://localhost:3306/bank";
 		String uid = "root";
 		String upw = "1234";
-		String sql = "update member set id = ?, name = ?, age = ?, tel = ? where id = ?";
+		String sql = "update member set tel = ? where id = ?";
 		
 		try {
 			
@@ -56,11 +56,9 @@ public class BankDAO {
 			conn = DriverManager.getConnection(url, uid, upw);
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getName());
-			pstmt.setInt(3, member.getAge());
-			pstmt.setString(4, member.getTel());
-			pstmt.setString(5, member.getId());
+			pstmt.setString(1, member.getTel());
+			pstmt.setString(2, member.getId());
+
 			
 			pstmt.executeUpdate();
 			

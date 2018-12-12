@@ -1,16 +1,17 @@
 package money;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JLabel;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.awt.Color;
+
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class BankManager extends JFrame implements ActionListener {
@@ -234,8 +235,6 @@ public class BankManager extends JFrame implements ActionListener {
 	class Modify extends JFrame {
 
 		private JTextField idField;
-		private JTextField nameField;
-		private JTextField ageField;
 		private JTextField telField;
 		
 		BankDAO dao = new BankDAO();
@@ -243,12 +242,12 @@ public class BankManager extends JFrame implements ActionListener {
 		public Modify() {
 			
 			//UI세팅
-			setSize(300,259);
-			setLayout(null);
+			setSize(300,190);
+			getContentPane().setLayout(null);
 			
 			JPanel panel = new JPanel();
-			panel.setBounds(0, 35, 284, 141);
-			add(panel);
+			panel.setBounds(0, 35, 284, 73);
+			getContentPane().add(panel);
 			panel.setLayout(null);
 			
 			JLabel idLb = new JLabel("ID :");
@@ -256,19 +255,9 @@ public class BankManager extends JFrame implements ActionListener {
 			idLb.setBounds(12, 10, 56, 22);
 			panel.add(idLb);
 			
-			JLabel nameLb = new JLabel("이름 :");
-			nameLb.setFont(new Font("나눔고딕", Font.PLAIN, 13));
-			nameLb.setBounds(12, 42, 56, 22);
-			panel.add(nameLb);
-			
-			JLabel ageLb = new JLabel("나이 :");
-			ageLb.setFont(new Font("나눔고딕", Font.PLAIN, 13));
-			ageLb.setBounds(12, 74, 56, 22);
-			panel.add(ageLb);
-			
 			JLabel telLb = new JLabel("연락처 :");
 			telLb.setFont(new Font("나눔고딕", Font.PLAIN, 13));
-			telLb.setBounds(12, 105, 56, 22);
+			telLb.setBounds(12, 41, 56, 22);
 			panel.add(telLb);
 			
 			idField = new JTextField();
@@ -276,29 +265,19 @@ public class BankManager extends JFrame implements ActionListener {
 			panel.add(idField);
 			idField.setColumns(10);
 			
-			nameField = new JTextField();
-			nameField.setColumns(10);
-			nameField.setBounds(80, 43, 191, 21);
-			panel.add(nameField);
-			
-			ageField = new JTextField();
-			ageField.setColumns(10);
-			ageField.setBounds(80, 75, 191, 21);
-			panel.add(ageField);
-			
 			telField = new JTextField();
 			telField.setColumns(10);
-			telField.setBounds(80, 106, 191, 21);
+			telField.setBounds(81, 42, 191, 21);
 			panel.add(telField);
 			
 			JLabel lblNewLabel = new JLabel("고객정보수정");
 			lblNewLabel.setFont(new Font("함초롬돋움", Font.BOLD, 13));
 			lblNewLabel.setBounds(100, 10, 84, 15);
-			add(lblNewLabel);
+			getContentPane().add(lblNewLabel);
 			
 			JButton btnNewButton = new JButton("수정");
-			btnNewButton.setBounds(97, 186, 97, 23);
-			add(btnNewButton);
+			btnNewButton.setBounds(100, 118, 97, 23);
+			getContentPane().add(btnNewButton);
 			setVisible(true);
 			
 			//액션리스너 설정
@@ -307,9 +286,7 @@ public class BankManager extends JFrame implements ActionListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					//수정버튼 클릭 시 텍스트필드의 내용을 가져와서 DTO객체화하고, 이것을 매개변수로 회원수정 메서드 호출
-					dao.modify(new BankDTO(idField.getText(), nameField.getText(), 
-							Integer.parseInt(ageField.getText()), telField.getText()));
-					
+					dao.modify(new BankDTO(idField.getText(), telField.getText()));
 				}
 			});
 		}
