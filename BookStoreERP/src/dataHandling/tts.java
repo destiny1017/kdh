@@ -13,10 +13,10 @@ public class tts {
 //		total = dao.classificatonSale("test");
 //		System.out.println(total.get("역사"));
 //		dao.fileLoad("test");
-//		dao.fileSave("20181211");
+		dao.fileSave("20181213");
 		
 //		dao.fileSaveYear();
-		dao.fileLoadTotal("20181117", "20181210");
+//		dao.fileLoadTotal("20181117", "20181210");
 	}
 
 }
