@@ -92,12 +92,17 @@ public class MainPan extends JPanel implements ActionListener {
 	}
 	StockPan stockPan = StockPan.getInstance();
 	StatisticsPan statisticsPan = StatisticsPan.getInstance();
+	OrderPan orderPan = OrderPan.getInstance();
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
 		//각 메뉴 클릭 시 액션처리
 		if(e.getSource() == btnOrder) {
+			panel.removeAll();
+			panel.add(orderPan);
+			panel.revalidate();
+			panel.repaint();
 			
 		}else if(e.getSource() == btnStock) {
 			panel.removeAll();

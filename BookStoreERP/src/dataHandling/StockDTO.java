@@ -11,6 +11,13 @@ public class StockDTO {
 	private int stock;
 	
 	
+	public StockDTO(String isbn, String title, String publisher) {
+		super();
+		this.isbn = isbn;
+		this.title = title;
+		this.publisher = publisher;
+	}
+
 	public StockDTO(String isbn, String classification, String title, String publisher, String writer, int price) {
 		super();
 		this.isbn = isbn;

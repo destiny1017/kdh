@@ -301,5 +301,53 @@ public class StatisticsDAO {
 		}		
 		return total;
 	}
+	
+	public HashMap<String, Integer> classificatonSaleP(ArrayList<StatisticsDTO> sale) {
+		
+		HashMap<String, Integer> total = new HashMap<>();
+		ArrayList<StatisticsDTO> society = new ArrayList<>();				
+		ArrayList<StatisticsDTO> economy = new ArrayList<>();				
+		ArrayList<StatisticsDTO> history = new ArrayList<>();				
+		ArrayList<StatisticsDTO> science = new ArrayList<>();				
+		ArrayList<StatisticsDTO> art = new ArrayList<>();				
+		ArrayList<StatisticsDTO> examination = new ArrayList<>();
+		
+		total.put("사회정치", 0);
+		total.put("경제경영", 0);
+		total.put("역사", 0);
+		total.put("자연과학", 0);
+		total.put("예술", 0);
+		total.put("수험서", 0);
+		
+		for (int i = 0; i < sale.size(); i++) {
+			switch (sale.get(i).getClassification()) {
+			case "사회정치":
+				society.add(sale.get(i));
+				total.put("사회정치", total.get("사회정치") + (sale.get(i).getPrice() * sale.get(i).getSalesVolume()));
+				break;
+			case "경제경영":
+				economy.add(sale.get(i));
+				total.put("경제경영", total.get("경제경영") + (sale.get(i).getPrice() * sale.get(i).getSalesVolume()));
+				break;
+			case "역사":
+				history.add(sale.get(i));
+				total.put("역사", total.get("역사") + (sale.get(i).getPrice() * sale.get(i).getSalesVolume()));
+				break;
+			case "자연과학":
+				science.add(sale.get(i));
+				total.put("자연과학", total.get("자연과학") + (sale.get(i).getPrice() * sale.get(i).getSalesVolume()));
+				break;
+			case "예술":
+				art.add(sale.get(i));
+				total.put("예술", total.get("예술") + (sale.get(i).getPrice() * sale.get(i).getSalesVolume()));
+				break;
+			case "수험서":
+				examination.add(sale.get(i));
+				total.put("수험서", total.get("수험서") + (sale.get(i).getPrice() * sale.get(i).getSalesVolume()));
+				break;
+			}
+		}		
+		return total;
+	}
 
 }

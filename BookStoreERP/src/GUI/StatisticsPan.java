@@ -35,6 +35,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import dataHandling.StatisticsDAO;
 import dataHandling.StatisticsDTO;
+import javax.swing.ImageIcon;
 
 public class StatisticsPan extends JPanel implements ActionListener {
 
@@ -62,7 +63,7 @@ public class StatisticsPan extends JPanel implements ActionListener {
 	JRadioButton monthRdbtn = new JRadioButton("월별");
 	ButtonGroup group = new ButtonGroup();
 	JButton confirmBtn = new JButton("확인");
-	JToggleButton tgBtn = new JToggleButton("chart");
+	JToggleButton tgBtn = new JToggleButton("");
 
 	StatisticsDAO file = new StatisticsDAO();
 
@@ -77,6 +78,7 @@ public class StatisticsPan extends JPanel implements ActionListener {
 
 	ArrayList<StatisticsDTO> sales;
 	HashMap<String, Integer> clfSales;
+	HashMap<String, Integer> previousClfSales;
 
 	private StatisticsPan() {
 
@@ -284,7 +286,7 @@ public class StatisticsPan extends JPanel implements ActionListener {
 		choiceDayLb.setText("");
 
 		confirmBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 11));
-		confirmBtn.setBounds(767, 3, 57, 22);
+		confirmBtn.setBounds(757, 3, 57, 22);
 		panel_2.add(confirmBtn);
 
 		panel_5.setBounds(232, 42, 875, 554);
@@ -295,8 +297,9 @@ public class StatisticsPan extends JPanel implements ActionListener {
 		periodLb2.setEnabled(false);
 		monthCombo.setEnabled(false);
 		yearCombo.setEnabled(false);
+		tgBtn.setIcon(new ImageIcon("D:\\스샷\\101.png"));
 
-		tgBtn.setBounds(836, 3, 36, 25);
+		tgBtn.setBounds(830, 0, 30, 28);
 		panel_2.add(tgBtn);
 		tgBtn.addActionListener(new ActionListener() {
 
@@ -349,8 +352,12 @@ public class StatisticsPan extends JPanel implements ActionListener {
 
 			int[] dayOfMomth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
+			previousClfSales = file.classificatonSaleP(sales);
+
 			if (select.equals("당일 매출")) {
 
+				sales = file.fileLoad(today);
+				clfSales = file.classificatonSale(sales);
 				choiceDayLb.setText(today);
 				setList(); // 당일 매출로 테이블 세팅
 				choiceDayLb.setText("");
@@ -390,11 +397,41 @@ public class StatisticsPan extends JPanel implements ActionListener {
 				dayF = day.substring(0, 4) + "년" + day.substring(4, 6) + "월" + day.substring(6) + "일";
 				dayLb2.setText(dayF);
 			}
+
 		}
 	}
 
 	// 변경사항시마다 리스트를 새로고침해줄 메서드
 	public void setList() {
+
+		String[] column = { "ISBN", "분류", "제목", "가격", "판매량", "총 판매액" };
+		String[][] row = new String[sales.size()][6];
+
+		long totalSale = 0;
+
+		for (int i = 0; i < sales.size(); i++) {
+			row[i][0] = sales.get(i).getIsbn();
+			row[i][1] = sales.get(i).getClassification();
+			row[i][2] = sales.get(i).getTitle();
+			row[i][3] = "" + sales.get(i).getPrice();
+			row[i][4] = "" + sales.get(i).getSalesVolume();
+			row[i][5] = "" + f1.format(sales.get(i).getSalesVolume() * sales.get(i).getPrice());
+			totalSale += sales.get(i).getSalesVolume() * sales.get(i).getPrice();
+		}
+
+		panel.setLayout(null);
+
+		table = new JTable(row, column);
+		table.getColumnModel().getColumn(0).setPreferredWidth(30);
+		table.getColumnModel().getColumn(1).setPreferredWidth(10);
+		table.getColumnModel().getColumn(2).setMaxWidth(300);
+		table.getColumnModel().getColumn(2).setPreferredWidth(300);
+		table.getColumnModel().getColumn(3).setPreferredWidth(20);
+		table.getColumnModel().getColumn(4).setPreferredWidth(50);
+		table.getColumnModel().getColumn(5).setPreferredWidth(80);
+		panel_5.setLayout(null);
+		scroll = new JScrollPane(table);
+		scroll.setBounds(0, 0, 875, 554);
 
 		if (tgBtn.isSelected()) {
 
@@ -408,50 +445,21 @@ public class StatisticsPan extends JPanel implements ActionListener {
 			panel_5.revalidate();
 			panel_5.repaint();
 
-		} else if (!tgBtn.isSelected()) {
-
-			String[] column = { "ISBN", "분류", "제목", "가격", "판매량", "총 판매액" };
-			String[][] row = new String[sales.size()][6];
-
-			long totalSale = 0;
-
-			for (int i = 0; i < sales.size(); i++) {
-				row[i][0] = sales.get(i).getIsbn();
-				row[i][1] = sales.get(i).getClassification();
-				row[i][2] = sales.get(i).getTitle();
-				row[i][3] = "" + sales.get(i).getPrice();
-				row[i][4] = "" + sales.get(i).getSalesVolume();
-				row[i][5] = "" + f1.format(sales.get(i).getSalesVolume() * sales.get(i).getPrice());
-				totalSale += sales.get(i).getSalesVolume() * sales.get(i).getPrice();
-			}
-
-			panel.setLayout(null);
-
-			table = new JTable(row, column);
-			table.getColumnModel().getColumn(0).setPreferredWidth(30);
-			table.getColumnModel().getColumn(1).setPreferredWidth(10);
-			table.getColumnModel().getColumn(2).setMaxWidth(300);
-			table.getColumnModel().getColumn(2).setPreferredWidth(300);
-			table.getColumnModel().getColumn(3).setPreferredWidth(20);
-			table.getColumnModel().getColumn(4).setPreferredWidth(50);
-			table.getColumnModel().getColumn(5).setPreferredWidth(80);
-			panel_5.setLayout(null);
-			scroll = new JScrollPane(table);
-			scroll.setBounds(0, 0, 875, 554);
+		} else {
 
 			panel_5.removeAll();
 			panel_5.add(scroll);
 			panel_5.revalidate();
 			panel_5.repaint();
-
-			totalLb.setText("" + f1.format(totalSale));
-			societyLb.setText("" + f1.format(clfSales.get("사회정치")));
-			economyLb.setText("" + f1.format(clfSales.get("경제경영")));
-			scienceLb.setText("" + f1.format(clfSales.get("자연과학")));
-			examinationLb.setText("" + f1.format(clfSales.get("수험서")));
-			artLb.setText("" + f1.format(clfSales.get("예술")));
-			historyLb.setText("" + f1.format(clfSales.get("역사")));
 		}
+
+		totalLb.setText("" + f1.format(totalSale));
+		societyLb.setText("" + f1.format(clfSales.get("사회정치")));
+		economyLb.setText("" + f1.format(clfSales.get("경제경영")));
+		scienceLb.setText("" + f1.format(clfSales.get("자연과학")));
+		examinationLb.setText("" + f1.format(clfSales.get("수험서")));
+		artLb.setText("" + f1.format(clfSales.get("예술")));
+		historyLb.setText("" + f1.format(clfSales.get("역사")));
 
 	}
 
@@ -472,8 +480,8 @@ public class StatisticsPan extends JPanel implements ActionListener {
 	private DefaultCategoryDataset getDataSet() {
 
 		DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-		String category1 = "category#1";
-		String category2 = "category#2";
+		String category1 = "Selected";
+		String category2 = "Previous";
 		String test1 = "Society";
 		String test2 = "Economy";
 		String test3 = "Science";
@@ -489,11 +497,12 @@ public class StatisticsPan extends JPanel implements ActionListener {
 		dataSet.addValue(clfSales.get("예술"), category1, test5);
 		dataSet.addValue(clfSales.get("역사"), category1, test6);
 		// addValue() 메서드를 이용해서 값을 추가함
-//		dataSet.addValue(37.0, category2, test1);
-//		dataSet.addValue(26.0, category2, test2);
-//		dataSet.addValue(32.0, category2, test3);
-//		dataSet.addValue(49.0, category2, test4);
-//		dataSet.addValue(23.0, category2, test5);
+		dataSet.addValue(previousClfSales.get("사회정치"), category2, test1);
+		dataSet.addValue(previousClfSales.get("경제경영"), category2, test2);
+		dataSet.addValue(previousClfSales.get("자연과학"), category2, test3);
+		dataSet.addValue(previousClfSales.get("수험서"), category2, test4);
+		dataSet.addValue(previousClfSales.get("예술"), category2, test5);
+		dataSet.addValue(previousClfSales.get("역사"), category2, test6);
 
 		return dataSet;
 	}
