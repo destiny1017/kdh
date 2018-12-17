@@ -68,15 +68,15 @@ public class StatisticsDAO {
 	public void fileSaveYear() {
 			
 		int year = 2018;
-		int month = 10;
-		int day = 20;
+		int month = 11;
+		int day = 15;
 		
 		int[] dayOfMomth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 		
 		DecimalFormat df = new DecimalFormat("00");
 		StockDAO dao = new StockDAO();
 		
-		for (int i = 20; i <= 30; i++) {
+		for (int i = 15; i <= 17; i++) {
 			
 			String date = "" + year + df.format(month+1) + df.format(day);
 			

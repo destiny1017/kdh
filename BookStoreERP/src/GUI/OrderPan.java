@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Enumeration;
 
 import javax.swing.JPanel;
@@ -27,6 +28,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
 
 public class OrderPan extends JPanel implements ActionListener {
 
@@ -45,8 +47,12 @@ public class OrderPan extends JPanel implements ActionListener {
 	ArrayList<StockDTO> books = new ArrayList<>();
 	ArrayList<StockDTO> orderBooks = new ArrayList<>();
 	String select = "제목";
+	
+	DecimalFormat df = new DecimalFormat("00");
+	Calendar cal = Calendar.getInstance();
+	String today = "" + cal.get(cal.YEAR) + "-" + (cal.get(cal.MONTH) + 1) + "-" + df.format(cal.get(cal.DAY_OF_MONTH));
 
-	private JTextField searchField;
+	JTextField searchField;
 	JRadioButton[] rdbtnNewRadioButton = new JRadioButton[5];
 	ButtonGroup group = new ButtonGroup();
 
@@ -100,6 +106,10 @@ public class OrderPan extends JPanel implements ActionListener {
 		orderBtn.setBounds(1019, 570, 88, 26);
 
 		panel.add(orderBtn);
+		
+		JButton orderListBtn = new JButton("발주리스트");
+		orderListBtn.setBounds(914, 570, 101, 26);
+		panel.add(orderListBtn);
 
 		String[] clf = { "제목", "ISBN", "출판사", "저자", "분류" };
 		for (int i = 0; i < rdbtnNewRadioButton.length; i++) {
@@ -118,6 +128,8 @@ public class OrderPan extends JPanel implements ActionListener {
 		addOrderBtn.addActionListener(this);
 		outBtn.addActionListener(this);
 		orderBtn.addActionListener(this);
+		
+		System.out.println(today);
 	}
 
 	@Override
@@ -170,9 +182,10 @@ public class OrderPan extends JPanel implements ActionListener {
 			// selected 배열 각 행에 해당하는 데이터 삭제반복
 			for (int i = 0; i < orderTable.getRowCount(); i++) {
 				String isbn = (String) orderTable.getValueAt(i, 0);
+				String publisher = (String) orderTable.getValueAt(i, 2);
 				String tempQuantity = (String) orderTable.getValueAt(i, 3);
 				int quantity = tempQuantity.equals("") ? 0 : Integer.parseInt(tempQuantity);
-				if (quantity != 0) orderDao.insert(new OrderDTO(isbn, quantity));
+				if (quantity != 0) orderDao.insert(new OrderDTO(isbn, quantity), today, publisher);
 			}
 			JOptionPane.showMessageDialog(null, "발주가 정상적으로 처리되었습니다.");
 			orderBooks.clear();

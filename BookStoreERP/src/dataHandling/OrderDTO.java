@@ -1,7 +1,7 @@
 package dataHandling;
 
 public class OrderDTO {
-
+		
 	   private String isbn;
 	   private int quantity;
 	   
