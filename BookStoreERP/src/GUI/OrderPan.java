@@ -15,6 +15,8 @@ import javax.swing.SwingConstants;
 
 import dataHandling.OrderDAO;
 import dataHandling.OrderDTO;
+import dataHandling.StatisticsDAO;
+import dataHandling.StatisticsDTO;
 import dataHandling.StockDAO;
 import dataHandling.StockDTO;
 
@@ -37,6 +39,7 @@ public class OrderPan extends JPanel implements ActionListener {
 	JPanel orderListPan = new JPanel();
 	JPanel panel_1 = new JPanel();
 	JButton searchBtn = new JButton("검색");
+	JButton orderListBtn = new JButton("발주리스트");
 
 	JTable table = null;
 	JScrollPane scroll = null;
@@ -44,8 +47,10 @@ public class OrderPan extends JPanel implements ActionListener {
 	JScrollPane orderScroll = null;
 	StockDAO dao = new StockDAO();
 	OrderDAO orderDao = new OrderDAO();
+	StatisticsDAO sttsDao = new StatisticsDAO();
 	ArrayList<StockDTO> books = new ArrayList<>();
 	ArrayList<StockDTO> orderBooks = new ArrayList<>();
+	ArrayList<StatisticsDTO> salesBooks = new ArrayList<>();
 	String select = "제목";
 	
 	DecimalFormat df = new DecimalFormat("00");
@@ -72,6 +77,10 @@ public class OrderPan extends JPanel implements ActionListener {
 		orderListPan.setBounds(688, 38, 419, 522);
 		panel.add(orderListPan);
 		orderListPan.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("발주할 도서 목록");
+		lblNewLabel_1.setBounds(688, 10, 101, 22);
+		panel.add(lblNewLabel_1);
 
 		panel_1.setBounds(12, 10, 1095, 22);
 		panel.add(panel_1);
@@ -97,6 +106,9 @@ public class OrderPan extends JPanel implements ActionListener {
 
 		searchBtn.setBounds(199, 0, 66, 22);
 		panel_1.add(searchBtn);
+		resetBtn.setBounds(990, 0, 105, 22);
+		
+		panel_1.add(resetBtn);
 		addOrderBtn.setBounds(632, 238, 44, 44);
 
 		panel.add(addOrderBtn);
@@ -107,9 +119,16 @@ public class OrderPan extends JPanel implements ActionListener {
 
 		panel.add(orderBtn);
 		
-		JButton orderListBtn = new JButton("발주리스트");
 		orderListBtn.setBounds(914, 570, 101, 26);
 		panel.add(orderListBtn);
+		SaleOrderBtn.setBounds(781, 570, 129, 26);
+		
+		panel.add(SaleOrderBtn);
+		
+		textField = new JTextField();
+		textField.setBounds(661, 573, 116, 21);
+		panel.add(textField);
+		textField.setColumns(10);
 
 		String[] clf = { "제목", "ISBN", "출판사", "저자", "분류" };
 		for (int i = 0; i < rdbtnNewRadioButton.length; i++) {
@@ -128,6 +147,9 @@ public class OrderPan extends JPanel implements ActionListener {
 		addOrderBtn.addActionListener(this);
 		outBtn.addActionListener(this);
 		orderBtn.addActionListener(this);
+		orderListBtn.addActionListener(this);
+		SaleOrderBtn.addActionListener(this);
+		resetBtn.addActionListener(this);
 		
 		System.out.println(today);
 	}
@@ -181,14 +203,22 @@ public class OrderPan extends JPanel implements ActionListener {
 
 			// selected 배열 각 행에 해당하는 데이터 삭제반복
 			for (int i = 0; i < orderTable.getRowCount(); i++) {
+				System.out.println(i + "번째");
 				String isbn = (String) orderTable.getValueAt(i, 0);
 				String publisher = (String) orderTable.getValueAt(i, 2);
-				String tempQuantity = (String) orderTable.getValueAt(i, 3);
+				String tempQuantity = "" + orderTable.getValueAt(i, 3);
 				int quantity = tempQuantity.equals("") ? 0 : Integer.parseInt(tempQuantity);
 				if (quantity != 0) orderDao.insert(new OrderDTO(isbn, quantity), today, publisher);
 			}
 			JOptionPane.showMessageDialog(null, "발주가 정상적으로 처리되었습니다.");
 			orderBooks.clear();
+			setOrderList();
+		} else if(e.getSource() == orderListBtn) {
+			new OrderList();
+		} else if(e.getSource() == SaleOrderBtn) {
+			setSalesOrderList();
+		} else if(e.getSource() == resetBtn) {
+			orderBooks = new ArrayList<>();
 			setOrderList();
 		}
 	}
@@ -231,6 +261,37 @@ public class OrderPan extends JPanel implements ActionListener {
 
 	}
 
+	public void setSalesOrderList() {
+		
+		salesBooks = sttsDao.fileLoad(textField.getText());
+		String[] column = { "ISBN", "제목", "출판사", "발주수량" };
+		Object[][] line = new Object[salesBooks.size()][4];
+
+		for (int i = 0; i < salesBooks.size(); i++) {
+			line[i][0] = salesBooks.get(i).getIsbn();
+			line[i][1] = salesBooks.get(i).getTitle();
+			line[i][2] = salesBooks.get(i).getPublisher();
+			line[i][3] = salesBooks.get(i).getSalesVolume();
+		}
+		orderListPan.setLayout(null);
+
+		orderTable = new JTable(line, column);
+		orderTable.getColumnModel().getColumn(0).setPreferredWidth(40);
+		orderTable.getColumnModel().getColumn(1).setPreferredWidth(150);
+		orderTable.getColumnModel().getColumn(1).setMaxWidth(150);
+		orderTable.getColumnModel().getColumn(2).setPreferredWidth(30);
+		orderTable.getColumnModel().getColumn(3).setPreferredWidth(20);
+		orderScroll = new JScrollPane(orderTable);
+
+		orderScroll.setBounds(0, 0, 419, 522);
+
+		orderListPan.removeAll();
+		orderListPan.add(orderScroll);
+		orderListPan.revalidate();
+		orderListPan.repaint();
+
+	}
+	
 	public void setOrderList() {
 
 		String[] column = { "ISBN", "제목", "출판사", "발주수량" };
@@ -265,6 +326,9 @@ public class OrderPan extends JPanel implements ActionListener {
 	private final JButton addOrderBtn = new JButton(">");
 	private final JButton outBtn = new JButton("<");
 	private final JButton orderBtn = new JButton("발주");
+	private final JButton SaleOrderBtn = new JButton("판매량만큼 발주");
+	private JTextField textField;
+	private final JButton resetBtn = new JButton("목록 초기화");
 
 	public static OrderPan getInstance() {
 		return pan;

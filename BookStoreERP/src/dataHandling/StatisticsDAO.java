@@ -31,8 +31,8 @@ public class StatisticsDAO {
 		String url = "jdbc:mysql://localhost:3306/erp";
 		String uid = "root";
 		String upw = "1234";
-		String sql = "select books.isbn, books.classification, books.title, books.price, total_sale.salesVolume "
-				+ "from books, total_sale where books.isbn = total_sale.isbn";
+		String sql = "select books.isbn, books.classification, books.title, books.price, total_sale.salesVolume, "
+				+ "books.publisher from books, total_sale where books.isbn = total_sale.isbn";
 			
 		try {
 			
@@ -52,7 +52,8 @@ public class StatisticsDAO {
 					String title = rs.getString("title");
 					int price = rs.getInt("price");
 					int salesVolume = rs.getInt("salesVolume");
-					fileSave.add(new StatisticsDTO(isbn, classification, title, price, salesVolume));
+					String publisher = rs.getString("publisher");
+					fileSave.add(new StatisticsDTO(isbn, classification, title, price, salesVolume, publisher));
 				}				
 			}
 			
@@ -68,15 +69,15 @@ public class StatisticsDAO {
 	public void fileSaveYear() {
 			
 		int year = 2018;
-		int month = 11;
-		int day = 15;
+		int month = 10;
+		int day = 20;
 		
 		int[] dayOfMomth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 		
 		DecimalFormat df = new DecimalFormat("00");
 		StockDAO dao = new StockDAO();
 		
-		for (int i = 15; i <= 17; i++) {
+		for (int i = 1; i <= 30; i++) {
 			
 			String date = "" + year + df.format(month+1) + df.format(day);
 			
@@ -157,7 +158,8 @@ public class StatisticsDAO {
 			rs.beforeFirst();
 			while(rs.next()) {
 				result.add(new StatisticsDTO(rs.getString("isbn"), rs.getString("classification"), 
-						rs.getString("title"), rs.getInt("price"), total.get(rs.getString("isbn"))));
+						rs.getString("title"), rs.getInt("price"), total.get(rs.getString("isbn")), 
+						rs.getString("publisher")));
 			}
 									
 		} catch (Exception e) {
@@ -245,7 +247,8 @@ public class StatisticsDAO {
 			rs.beforeFirst();
 			while(rs.next()) {
 				result.add(new StatisticsDTO(rs.getString("isbn"), rs.getString("classification"), 
-						rs.getString("title"), rs.getInt("price"), total.get(rs.getString("isbn"))));
+						rs.getString("title"), rs.getInt("price"), total.get(rs.getString("isbn")), 
+						rs.getString("publisher")));
 			}
 									
 		} catch (Exception e) {

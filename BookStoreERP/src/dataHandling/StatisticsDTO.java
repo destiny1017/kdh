@@ -11,16 +11,19 @@ public class StatisticsDTO implements Serializable {
 	private String title;
 	private int price;
 	private int salesVolume;
+	private String publisher;
 	
 	public StatisticsDTO() {}
 
-	public StatisticsDTO(String isbn, String classification, String title, int price, int salesVolume) {
+	public StatisticsDTO(String isbn, String classification, String title, int price, int salesVolume,
+			String publisher) {
 		super();
 		this.isbn = isbn;
 		this.classification = classification;
 		this.title = title;
 		this.price = price;
 		this.salesVolume = salesVolume;
+		this.publisher = publisher;
 	}
 
 	public String getIsbn() {
@@ -62,6 +65,18 @@ public class StatisticsDTO implements Serializable {
 	public void setSalesVolume(int salesVolume) {
 		this.salesVolume = salesVolume;
 	}
-	
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	
 }

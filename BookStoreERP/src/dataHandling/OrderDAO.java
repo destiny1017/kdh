@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class OrderDAO {
+	
 	ArrayList<BookTotalDTO> booksT = new ArrayList<>();
 	ArrayList<BooksOrderDTO> books = new ArrayList<>();
 	ArrayList<DetailDTO> booksD = new ArrayList<>();
@@ -101,6 +102,33 @@ public class OrderDAO {
 		return books;
 	}
 	
+	public void deleteOrder(int no) {
+		
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		
+		String url = "jdbc:mysql://localhost:3306/erp";
+		String uid = "root";
+		String upw = "1234";
+		String sql1 = "delete from books_order where no = '" + no + "'";
+		String sql2 = "delete from order_detail where no = '" + no + "'";
+		booksD = new ArrayList<>();
+		
+		try {
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(url, uid, upw);
+			pstmt = conn.prepareStatement(sql1);			
+			pstmt.executeUpdate();
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public ArrayList<DetailDTO> detailList(int no) {
 		
 		PreparedStatement pstmt = null;
@@ -110,8 +138,9 @@ public class OrderDAO {
 		String url = "jdbc:mysql://localhost:3306/erp";
 		String uid = "root";
 		String upw = "1234";
-		String sql = "select books.isbn, books.classification, books.title, books.writer, order_detail.quantity "
-				+ "from books, order_detail where books.isbn = order_detail.isbn";
+		String sql = "select books.isbn, books.classification, books.title, books.writer, order_detail.quantity, "
+				+ "order_detail.no from books, order_detail "
+				+ "where books.isbn = order_detail.isbn && order_detail.no = '" + no + "'";
 		booksD = new ArrayList<>();
 		
 		try {
@@ -122,8 +151,8 @@ public class OrderDAO {
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				booksD.add(new DetailDTO(rs.getString("isbn"), rs.getString("classification"), rs.getString("title"),
-						rs.getString("writer"), rs.getInt("quantity")));
+				booksD.add(new DetailDTO(rs.getInt("no"), rs.getString("isbn"), rs.getString("classification"), 
+						rs.getString("title"), rs.getString("writer"), rs.getInt("quantity")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -132,106 +161,89 @@ public class OrderDAO {
 		
 	}
 
-	// isbn 삭제
-	public void delete(String isbn) {
-		try {
-
-			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://localhost:3306/erp";
-			String user = "root";
-			String password = "1234";
-
-			Connection con = DriverManager.getConnection(url, user, password);
-			String sql = "delete from books_order where isbn=?";
-
-			PreparedStatement ps = con.prepareStatement(sql);
-
-			ps.setString(1, isbn);
-			ps.executeUpdate();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	// 발주리스트 전체보기
-	public ArrayList<BookTotalDTO> SelectAll() {
+	// 발주 상세 항목 삭제
+	public void delete(String isbn, int no) {
 
 		PreparedStatement pstmt = null;
 		Connection conn = null;
-		ResultSet rs = null;
-
+		
 		String url = "jdbc:mysql://localhost:3306/erp";
 		String uid = "root";
 		String upw = "1234";
-		String sql = "select books.* ,books_order.no,books_order. quantity,books_order.TS "
-				+ "from books_order,books where books_order. isbn=books.isbn";
-		booksT = new ArrayList<>();
-
+		String sql = "delete from order_detail where isbn = ? && no = ?";
+		booksD = new ArrayList<>();
+		
 		try {
-
+			
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(url, uid, upw);
 			pstmt = conn.prepareStatement(sql);
-
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				booksT.add(new BookTotalDTO(rs.getString("ISBN"), rs.getString("classification"), rs.getString("title"),
-						rs.getString("publisher"), rs.getString("writer"), rs.getInt("price"), rs.getInt("no"),
-						rs.getInt("quantity"), rs.getString("TS")));
-
-			}
-
-		} catch (Exception e) {
+			
+			pstmt.setString(1, isbn);
+			pstmt.setInt(2, no);
+			
+			pstmt.executeUpdate();
+			
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return booksT;
-	}
 
-	// 발주 장기재고 리스트
-	public ArrayList<OrderDTO> lostList(String date) {
+	}
+	
+	//발주 상세 항목 수정
+	public void modify(String isbn, int quantity, int no) {
 
 		PreparedStatement pstmt = null;
 		Connection conn = null;
-		ResultSet rs = null;
-
-		ArrayList<OrderDTO> lostBooks = new ArrayList<>();
-
-		date = "20181214";
-
-		DecimalFormat df = new DecimalFormat("00");
-
-		int result = 1;
-
-		String num = "1";
+		
 		String url = "jdbc:mysql://localhost:3306/erp";
 		String uid = "root";
 		String upw = "1234";
-		String sql = "select * from books_order where TS like '2018-" + num + "%'";
-
-		booksT = new ArrayList<>();
-
+		String sql = "update order_detail set quantity = ? where isbn = ? && no = ?";
+		booksD = new ArrayList<>();
+		
 		try {
-
+			
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(url, uid, upw);
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, quantity);
+			pstmt.setString(2, isbn);
+			pstmt.setInt(3, no);
+			
+			pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 
-			for (int i = 1; i < result; i++) {
-				num = "" + df.format(i);
-
-				sql = "select * from books_order where TS like '2018-" + num + "%'";
-				pstmt = conn.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-
-				while (rs.next()) {
-					lostBooks.add(new OrderDTO(rs.getString("isbn"), rs.getInt("quantity")));
-				}
-			}
-
+	//재고입력 메서드
+	public void insertStock(String isbn, int quantity) {
+		
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		
+		String url = "jdbc:mysql://localhost:3306/erp";
+		String uid = "root";
+		String upw = "1234";
+		
+		String sql = "update books_stock set stock = stock + ? where isbn = ?";
+		
+		try {
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(url, uid, upw);
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, quantity);
+			pstmt.setString(2, isbn);
+			
+			pstmt.executeUpdate();
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return lostBooks;
 	}
 }

@@ -2,19 +2,29 @@ package dataHandling;
 
 public class DetailDTO {
 
+	int no;
 	String isbn;
 	String classification;
 	String title;
 	String writer;
 	int quantity;
 
-	public DetailDTO(String isbn, String classification, String title, String writer, int quantity) {
+	public DetailDTO(int no, String isbn, String classification, String title, String writer, int quantity) {
 		super();
+		this.no = no;
 		this.isbn = isbn;
 		this.classification = classification;
 		this.title = title;
 		this.writer = writer;
 		this.quantity = quantity;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
 	}
 
 	public String getIsbn() {

@@ -23,7 +23,7 @@ public class Home extends JFrame implements ActionListener {
 	public Home() {
 		
 		//UI세팅
-		setSize(1200,850);	
+		setBounds(200,100,1200,850);	
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
