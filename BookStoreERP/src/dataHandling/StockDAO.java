@@ -200,10 +200,11 @@ public class StockDAO {
 			pstmt.setInt(2, 0);
 			
 			pstmt.executeUpdate();
-			
-			
+						
 		} catch (Exception e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "이미 존재하는 ISBN입니다.");
+			return 1;
 		}
 		
 		return JOptionPane.showConfirmDialog(null, "정상적으로 등록되었습니다. 바로 입고를 진행하시겠습니까?");
