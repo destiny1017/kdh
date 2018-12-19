@@ -147,12 +147,8 @@ public class OrderList extends JFrame implements ActionListener, MouseListener {
 			int row = tableD.getRowCount();
 			for (int i = 0; i < row; i++) {
 				String isbn = (String) tableD.getValueAt(i, 0);
-				int quantity = (int) tableD.getValueAt(i, 4);
-				System.out.println(i);
-				System.out.println(tableD.getValueAt(i, 4));
-				System.out.println(quantity + " 완");
+				int quantity = Integer.parseInt("" + tableD.getValueAt(i, 4));
 				dao.insertStock(isbn, quantity);
-
 			}
 			delOrderBtn.doClick();
 		}
@@ -229,31 +225,14 @@ public class OrderList extends JFrame implements ActionListener, MouseListener {
 
 	}
 	
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		int row = table.getSelectedRow();
 		booksD = dao.detailList((int) table.getValueAt(row, 0));
 		setDetailList();
 	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		
-	}
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
 }

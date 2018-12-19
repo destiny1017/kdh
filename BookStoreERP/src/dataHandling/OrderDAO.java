@@ -9,11 +9,9 @@ import java.util.ArrayList;
 
 public class OrderDAO {
 	
-	ArrayList<BookTotalDTO> booksT = new ArrayList<>();
 	ArrayList<BooksOrderDTO> books = new ArrayList<>();
 	ArrayList<DetailDTO> booksD = new ArrayList<>();
 	
-
 	// 발주등록
 	public void insert(OrderDTO dto, String date, String publisher) {
 
@@ -74,6 +72,7 @@ public class OrderDAO {
 		}
 	}
 	
+	// 발주 리스트 출력
 	public ArrayList<BooksOrderDTO> booksOrderList() {
 		
 		PreparedStatement pstmt = null;
@@ -102,6 +101,7 @@ public class OrderDAO {
 		return books;
 	}
 	
+	//발주 항목 삭제
 	public void deleteOrder(int no) {
 		
 		PreparedStatement pstmt = null;
@@ -129,6 +129,7 @@ public class OrderDAO {
 		
 	}
 	
+	// 발주 상세 리스트 출력
 	public ArrayList<DetailDTO> detailList(int no) {
 		
 		PreparedStatement pstmt = null;

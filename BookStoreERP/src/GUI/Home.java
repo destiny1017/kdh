@@ -6,11 +6,16 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+
+import dataHandling.BookInput;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JPasswordField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Home extends JFrame implements ActionListener {
 
@@ -19,6 +24,8 @@ public class Home extends JFrame implements ActionListener {
 	JButton btnLogin = new JButton("Login");
 	JButton btnJoin = new JButton("Join");
 	JPanel testPan = new JPanel();
+	
+	BookInput dao = new BookInput();
 
 	public Home() {
 		
@@ -29,7 +36,7 @@ public class Home extends JFrame implements ActionListener {
 		getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(0, 51, 71));
+		panel.setBackground(new Color(51, 51, 102));
 		panel.setBounds(0, 0, 1184, 811);
 		getContentPane().add(panel);
 		panel.setLayout(null);
@@ -89,6 +96,14 @@ public class Home extends JFrame implements ActionListener {
 		panel_4.add(lblNewLabel_1);
 		
 		passwordField = new JPasswordField();
+		passwordField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					btnLogin.doClick();
+				}
+			}
+		});
 		passwordField.setBounds(163, 233, 218, 37);
 		panel_4.add(passwordField);
 		setVisible(true);
@@ -102,12 +117,16 @@ public class Home extends JFrame implements ActionListener {
 		
 		//login/join 버튼 클릭 시 액션
 		if(e.getSource() == btnLogin) {
-			getContentPane().removeAll();	//프레임 내의 컴포넌트를 모두 삭제
-			getContentPane().add(new MainPan());	//메인메뉴 패널을 추가
-			revalidate();	//변경 내용으로 새로고침
-			repaint();
-		}else if(e.getSource() == btnJoin) {
 			
+			if(dao.checkId(textField.getText(), passwordField.getText())) {			
+				getContentPane().removeAll();	//프레임 내의 컴포넌트를 모두 삭제
+				getContentPane().add(new MainPan());	//메인메뉴 패널을 추가
+				revalidate();	//변경 내용으로 새로고침
+				repaint();
+			}
+			
+		}else if(e.getSource() == btnJoin) {
+			new BookMember();
 		}
 	}
 	

@@ -25,7 +25,7 @@ public class MainPan extends JPanel implements ActionListener {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
-		panel_1.setBackground(new Color(0, 51, 71));
+		panel_1.setBackground(new Color(51, 51, 102));
 		panel_1.setBounds(0, 0, 1184, 811);
 		add(panel_1);
 		
@@ -85,11 +85,13 @@ public class MainPan extends JPanel implements ActionListener {
 		btnStatistics.setFocusPainted(false);
 		panel_3.add(btnStatistics);
 		
+		panel.add(stockPan);
 		btnOrder.addActionListener(this);
 		btnStock.addActionListener(this);
 		btnStatistics.addActionListener(this);
 		
 	}
+	
 	StockPan stockPan = StockPan.getInstance();
 	StatisticsPan statisticsPan = StatisticsPan.getInstance();
 	OrderPan orderPan = OrderPan.getInstance();

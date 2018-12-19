@@ -121,14 +121,18 @@ public class OrderPan extends JPanel implements ActionListener {
 		
 		orderListBtn.setBounds(914, 570, 101, 26);
 		panel.add(orderListBtn);
-		SaleOrderBtn.setBounds(781, 570, 129, 26);
+		SaleOrderBtn.setBounds(809, 570, 101, 26);
 		
 		panel.add(SaleOrderBtn);
 		
 		textField = new JTextField();
-		textField.setBounds(661, 573, 116, 21);
+		textField.setBounds(688, 570, 116, 26);
 		panel.add(textField);
 		textField.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("판매량 발주");
+		lblNewLabel_2.setBounds(612, 575, 72, 15);
+		panel.add(lblNewLabel_2);
 
 		String[] clf = { "제목", "ISBN", "출판사", "저자", "분류" };
 		for (int i = 0; i < rdbtnNewRadioButton.length; i++) {
@@ -326,7 +330,7 @@ public class OrderPan extends JPanel implements ActionListener {
 	private final JButton addOrderBtn = new JButton(">");
 	private final JButton outBtn = new JButton("<");
 	private final JButton orderBtn = new JButton("발주");
-	private final JButton SaleOrderBtn = new JButton("판매량만큼 발주");
+	private final JButton SaleOrderBtn = new JButton("목록 추가");
 	private JTextField textField;
 	private final JButton resetBtn = new JButton("목록 초기화");
 
