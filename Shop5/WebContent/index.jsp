@@ -38,7 +38,8 @@
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
-
+	
+	<!-- Header -->
 	<jsp:include page="includes/header.jsp" flush="false"/>
 
 	<!-- Slide1 -->

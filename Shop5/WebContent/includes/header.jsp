@@ -51,11 +51,6 @@
                   <ul class="main_menu">
                      <li>
                         <a href="index.jsp">Home</a>
-                        <ul class="sub_menu">
-                           <li><a href="index.jsp">Homepage V1</a></li>
-                           <li><a href="home-02.html">Homepage V2</a></li>
-                           <li><a href="home-03.html">Homepage V3</a></li>
-                        </ul>
                      </li>
 
                      <li>

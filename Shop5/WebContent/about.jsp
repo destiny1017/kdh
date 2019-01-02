@@ -34,7 +34,8 @@
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
-
+	
+	<!-- Header -->
 	<jsp:include page="includes/header.jsp" flush="false"/>
 
 	<!-- Title Page -->
