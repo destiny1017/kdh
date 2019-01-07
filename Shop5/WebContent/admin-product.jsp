@@ -10,14 +10,25 @@
     pageEncoding="UTF-8"%>
     
 <%
+	
 	ProductDAO dao = new ProductDAO();
 	ArrayList<ProductDTO> list = dao.getInfoALL();
-	String[][] pages = new String[list.size()/8 + 1][8]; //페이징
+	ProductDTO[][] pages = new ProductDTO[list.size()/8 + 1][8]; //페이징
 	HashSet<String> categories = new HashSet<>();	
 	for(int i = 0; i < list.size(); i++){
 		categories.add(list.get(i).getCategory());
 	}
+	
 	Iterator<String> iter = categories.iterator();
+	Iterator<String> iter2 = categories.iterator();
+	
+	for(int i = 0; i < categories.size(); i++){
+		String category = iter2.next();
+		Object num = session.getAttribute(category);
+		if(num == null){			
+			session.setAttribute(category , "1");
+		}
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -86,13 +97,22 @@
 					</div>
 				</div>					
 				<div style="background: white; width: 900px; height: auto;">
+				
+				<script type="text/javascript">
+				
+					function drop(){
+						
+					}
+				</script>
 										
 					<%for(int i = 0; i < categories.size(); i++){ 
 						String category = iter.next();
 						ArrayList<Integer> index = new ArrayList<>();
+						
+						int pageNum = Integer.parseInt("" + session.getAttribute(category));
 					%>
 					
-						<div class="wrap-dropdown-content bo6 p-t-15 p-b-14">	
+						<div class="wrap-dropdown-content bo6 p-t-15 p-b-14 active-dropdown-content">	
 							<h5 class="js-toggle-dropdown-content flex-sb-m cs-pointer m-text20 p-b-6 color0-hov trans-0-4">
 								<%= category %>
 								<i class="down-mark fs-12 color1 fa fa-minus dis-none" aria-hidden="true"></i>
@@ -113,26 +133,56 @@
 											} 
 										}
 										
-										pages = new String[index.size()/8 + 1][8];
+										pages = new ProductDTO[index.size()/8 + 1][8];
 										
-										for(int j = 0; j < index.size(); j++) { 
-												
-											%>
-												<tr class="table-row" onclick="javascript:location.href='#'">
-													<td><%= list.get(j).getPId() %></td>
-													<td><img src="images/<%=list.get(j).getPId()%>_1.jpg" width="100"></td>
-													<td><%= list.get(j).getName() %></td>
-													<td><%= list.get(j).getPrice() %></td>
-													
-												<tr>
+										int count = 0;
+										int lastPage = index.size() % 8;
+										
+										for(int j = 0; j < pages.length; j++){
+											if(j < pages.length-1){
+												for(int k = 0; k < 8; k++){
+													pages[j][k] = list.get(index.get(count));
+													count++;
+												}												
+											}else{
+												for(int k = 0; k < lastPage; k++){
+													pages[j][k] = list.get(index.get(count));
+													count++;
+												}																							
+											}
+										}
+										
+										int rows = ("" + pages.length).equals(session.getAttribute(category)) ? lastPage : 8;
+										for(int j = 0; j < rows; j++) { 		
+										%>
+											<tr class="table-row" onclick="javascript:location.href='#'" id="tr<%=j%>">
+												<td id="td<%=j%>_1"><%= pages[pageNum-1][j].getPId() %></td>
+												<td id="td<%=j%>_2"><img src="images/<%=pages[pageNum-1][j].getPId()%>_1.jpg" width="100"></td>
+												<td id="td<%=j%>_3"><%= pages[pageNum-1][j].getName() %></td>
+												<td id="td<%=j%>_4"><%= pages[pageNum-1][j].getPrice() %></td>
+											</tr>
 										<%} %>
 									</table>
-								<br>
-								<button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4">상품 등록</button>
+							<br>
+							<div class="pagination flex-m flex-w p-r-50">
+								<% for(int j = 1; j <= pages.length; j++){ 
+									if(pageNum == j){	
+								%>								
+										<a href="admin-product_p.jsp?btn=<%=category%>&num=<%=j %>"
+										 class="item-pagination flex-c-m trans-0-4 active-pagination"><%=j %></a>
+									<%}else{%>										
+										<a href="admin-product_p.jsp?btn=<%=category%>&num=<%=j %>" 
+										 class="item-pagination flex-c-m trans-0-4"><%=j %></a>
+									<%}
+								}%>
+							</div>
+														
+							<br>
+							<button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4">상품 등록</button>
 							</div>
 						</div>
 					<%} %>
-								<br><button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" style="width: 200px">카테고리 등록</button>
+					<br><button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" style="width: 200px">카테고리 등록</button>
 				</div>
 				</div>
 			</div>

@@ -14,6 +14,10 @@
 <%
 	MemberDAO dao = new MemberDAO();	
 	ArrayList<MemberDTO> member = dao.select();
+	String s = "1";
+	
+	pageContext.setAttribute(s, s);
+	int a = Integer.parseInt("" +  pageContext.getAttribute("1"));
 %>
 
 					<table class="table table-hover">
@@ -39,6 +43,7 @@
 						<%} %>
 
 					</table>
+					<%=a %>
 
 </body>
 </html>

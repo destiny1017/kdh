@@ -100,7 +100,6 @@
                     	 if(quantity > 0){ 
 	                    	 document.getElementById("total" + x).innerHTML = (price * quantity) + "원"                  		 
                     	 }
-
                      }
 
                   </script>
