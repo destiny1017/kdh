@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String id = (String) session.getAttribute("id");
+	id = "admin";
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,7 +85,14 @@
             </div>
 
             <!-- Header Icon -->
+            <%if(id.equals("admin")) { %>
             <div class="header-icons">
+               <a href="admin-member.jsp" class="header-wrapicon1 dis-block">
+                  <img src="images/icons/admin.jpg" class="header-icon1" alt="ICON">
+               </a>
+               
+               <span class="linedivide1"></span>
+            <%} %>
                <a href="mypage.jsp" class="header-wrapicon1 dis-block">
                   <img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
                </a>
