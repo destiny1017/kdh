@@ -30,11 +30,35 @@ insert into product values('p180','name10','blabla','11000','2','5','3','0','pan
 insert into product values('p181','name11','blabla','10000','2','5','3','0','pants');
 insert into product values('p182','name12','blabla','13000','2','5','3','0','pants');
 insert into product values('p184','name13','blabla','10000','2','5','3','0','pants');
-insert into product values('p183','name14','blabla','12000','2','5','3','0','pants');
+insert into product values('p185','name14','blabla','12000','2','5','3','0','pants');
+insert into product values('p186','name15','blabla','12000','2','5','3','0','pants');
+insert into product values('p187','name16','blabla','12000','2','5','3','0','pants');
+insert into product values('p188','name17','blabla','13000','2','5','3','0','pants');
+insert into product values('p189','name18','blabla','12000','2','5','3','0','pants');
+insert into product values('p190','name19','blabla','11000','2','5','3','0','pants');
+insert into product values('p191','name20','blabla','15000','2','5','3','0','pants');
+insert into product values('p192','name21','blabla','12000','2','5','3','0','pants');
 
+insert into product values('p193','name22','blabla','12000','2','5','3','0','shirts');
+insert into product values('p194','name23','blabla','12000','2','5','3','0','shirts');
+insert into product values('p195','name24','blabla','12000','2','5','3','0','shirts');
+insert into product values('p196','name25','blabla','12000','2','5','3','0','shirts');
+insert into product values('p197','name26','blabla','12000','2','5','3','0','shirts');
+insert into product values('p198','name27','blabla','12000','2','5','3','0','shirts');
+insert into product values('p199','name28','blabla','12000','2','5','3','0','shirts');
+insert into product values('p200','name29','blabla','12000','2','5','3','0','shirts');
 
 insert into addcart values('id1212','p123','small','3');
 insert into addcart values('id1212','p223','small','2');
 insert into addcart values('id1212','p153','small','1');
 
-
+insert into member values('id4432','pwpw1','hong','010-8785-1257','서울 종로구 아으아으아');
+insert into member values('id2341','pwpw2','kim','010-2652-1257','서울 종로구 헤헤');
+insert into member values('id1128','pwpw3','kdh','010-7854-3325','서울 종로구 우우ㅜㅏㅇㄷ');
+insert into member values('id6432','pwpw4','qwea','010-8931-1356','서울 종로구 자ㅣ더사ㅣㅈ');
+insert into member values('id3343','pwpw5','lee','010-3532-6542','서울 종로구 아러ㅏ니니');
+insert into member values('id1211','pwpw6','hwang','010-1479-6432','서울 종로구 ㅈㅂ돠ㅡㅁㄴ');
+insert into member values('id6579','pwpw7','won','010-1257-6432','서울 종로구 ㅇ나럽ㅈㄱ');
+insert into member values('id9865','pwpw8','dh','010-1478-7644','서울 종로구 ㅇ나ㅣ룁ㅈ');
+insert into member values('id0252','pwpw9','sh','010-7954-3544','서울 종로구 야좁고멂');
+insert into member values('id0643','pwpw0','bj','010-3457-7663','서울 종로구 버라보뱝');

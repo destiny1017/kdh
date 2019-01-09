@@ -15,11 +15,12 @@
 	MemberDAO dao = new MemberDAO();	
 	ArrayList<MemberDTO> member = dao.select();
 	String s = "1";
+	String test = (String) request.getParameter("t");
 	
 	pageContext.setAttribute(s, s);
 	int a = Integer.parseInt("" +  pageContext.getAttribute("1"));
 %>
-
+	<h3>${param.t}</h3>
 					<table class="table table-hover">
 						<tr>
 							<td></td>						
@@ -34,7 +35,7 @@
 						<%for(int i = 0; i < member.size(); i++){%>
 						<tr>
 							<td><%=i %></td>
-							<td><%=member.get(i).getId() %></td>											
+							<td id="id<%=i%>"><%=member.get(i).getId() %></td>											
 							<td><%=member.get(i).getPw() %></td>											
 							<td><%=member.get(i).getName() %></td>											
 							<td><%=member.get(i).getTel() %></td>											
@@ -43,7 +44,6 @@
 						<%} %>
 
 					</table>
-					<%=a %>
 
 </body>
 </html>

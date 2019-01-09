@@ -152,4 +152,31 @@ public class MemberDAO {
 		pool.freeConnection(conn, pstmt, rs);
 		return member;
 	}
+	
+	public ArrayList<MemberDTO> search(String id) {
+		
+		ArrayList<MemberDTO> member = new ArrayList<>();
+		
+		String sql = "select * from member where id like '%" + id + "%'";
+		
+		try {
+			conn = pool.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				member.add(new MemberDTO(
+						rs.getString("id"),
+						rs.getString("pw"),
+						rs.getString("name"),
+						rs.getString("tel"),
+						rs.getString("address")));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		pool.freeConnection(conn, pstmt, rs);
+		return member;
+	}
 }

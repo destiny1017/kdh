@@ -97,13 +97,6 @@
 					</div>
 				</div>					
 				<div style="background: white; width: 900px; height: auto;">
-				
-				<script type="text/javascript">
-				
-					function drop(){
-						
-					}
-				</script>
 										
 					<%for(int i = 0; i < categories.size(); i++){ 
 						String category = iter.next();
@@ -111,8 +104,13 @@
 						
 						int pageNum = Integer.parseInt("" + session.getAttribute(category));
 					%>
-					
-						<div class="wrap-dropdown-content bo6 p-t-15 p-b-14 active-dropdown-content">	
+					<%
+						if(pageNum > 1){
+					%>
+						<div class="wrap-dropdown-content bo6 p-t-15 p-b-14 active-dropdown-content">
+					<%} else{ %>	
+						<div class="wrap-dropdown-content bo6 p-t-15 p-b-14">
+					<%} %>	
 							<h5 class="js-toggle-dropdown-content flex-sb-m cs-pointer m-text20 p-b-6 color0-hov trans-0-4">
 								<%= category %>
 								<i class="down-mark fs-12 color1 fa fa-minus dis-none" aria-hidden="true"></i>
@@ -185,9 +183,7 @@
 					<br><button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4" style="width: 200px">카테고리 등록</button>
 				</div>
 				</div>
-			</div>
-
-		
+			</div>		
 	<br>
 	<br>
 	

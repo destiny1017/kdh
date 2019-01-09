@@ -5,11 +5,6 @@
     pageEncoding="UTF-8"%>
 <%
 
-	MemberDAO dao = new MemberDAO();	
-	ArrayList<MemberDTO> member = dao.select();
-	int pages = member.size() /10 + 1;
-	int pageNum = 1;
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -77,45 +72,37 @@
 						</ul>
 					</div>
 				</div>					
-				<div style="background: white; width: 900px; height: 800px;">
-					<!-- 검색 필드 -->
-					<div style="width: 500px; height: auto;">
-						<div class="pos-relative bo11 of-hidden"
-							style="width: 200px; height: auto;">
-							<input class="s-text7 size16 p-l-23 p-r-50" type="text"
-								id="search" placeholder="Search">
-
-							<button class="flex-c-m size5 ab-r-m color1 color0-hov trans-0-4" onclick="memberList()">
-								<i class="fs-13 fa fa-search" aria-hidden="true"></i>
-							</button>
-						</div>
+				<div style="background: white; width: 900px; height: 600px;" id="memTb">
+					
+										<h4 class="m-text23 p-t-20 p-b-14">Modify Info</h4>
+					<hr>
+					
+					<h5>ID : </h5><div class="p-r-230 p-r-230-lg">
+						<div class="search-product pos-relative bo4 of-hidden">
+								<input class="s-text7 size4 p-l-200 p-r-200" type="text" name="search-product" >
+						</div>					
 					</div>
-					<br>
-					<div style="background: white; width: 900px; height: 800px;" id="memTb">
-				
-					  <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-					  <script type="text/javascript">
-					 
-					    function memberList(x){
-					    	
-					    var id = document.getElementById("search").value
-					    	
-					      $.ajax({
-					        type : "GET",
-					        url : "memberTable.jsp?pageNum=" + x + "&search=" + id,
-					        dataType : "text",
-					        error : function() {
-					          alert('통신실패!!');
-					        },
-					        success : function(data) {
-					          $('#memTb').html(data);          
-					        }
-					      });
-					    }
-					    
-					    memberList()
-					  </script>
+					<h5>PW : </h5><div class="p-r-230 p-r-230-lg">
+						<div class="search-product pos-relative bo4 of-hidden">
+								<input class="s-text7 size4 p-l-200 p-r-200" type="text" name="search-product" >
+						</div>					
 					</div>
+					<h5>Name : </h5><div class="p-r-230 p-r-230-lg">
+						<div class="search-product pos-relative bo4 of-hidden">
+								<input class="s-text7 size4 p-l-200 p-r-200" type="text" name="search-product" >
+						</div>					
+					</div>
+					<h5>Address : </h5><div class="p-r-230 p-r-230-lg">
+						<div class="search-product pos-relative bo4 of-hidden">
+								<input class="s-text7 size4 p-l-200 p-r-200" type="text" name="search-product" >
+						</div>					
+					</div>
+					<h5> age : </h5><div class="p-r-230 p-r-230-lg">
+						<div class="search-product pos-relative bo4 of-hidden">
+								<input class="s-text7 size4 p-l-200 p-r-200" type="text" name="search-product">
+						</div>					
+					</div>
+					
 				</div>
 				</div>
 			</div>		
