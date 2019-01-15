@@ -1,6 +1,6 @@
-<%@page import="db.MemberDTO"%>
+<%@page import="bean.MemberDTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="db.MemberDAO"%>
+<%@page import="bean.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%

@@ -1,6 +1,6 @@
-<%@page import="db.MemberDTO"%>
+<%@page import="bean.MemberDTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="db.MemberDAO"%>
+<%@page import="bean.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -83,7 +83,7 @@
 						<div class="pos-relative bo11 of-hidden"
 							style="width: 200px; height: auto;">
 							<input class="s-text7 size16 p-l-23 p-r-50" type="text"
-								id="search" placeholder="Search">
+								id="search" placeholder="Search" onkeypress="javascript:if(event.keyCode==13){memberList()}">
 
 							<button class="flex-c-m size5 ab-r-m color1 color0-hov trans-0-4" onclick="memberList()">
 								<i class="fs-13 fa fa-search" aria-hidden="true"></i>

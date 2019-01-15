@@ -62,3 +62,18 @@ insert into member values('id6579','pwpw7','won','010-1257-6432','서울 종로�
 insert into member values('id9865','pwpw8','dh','010-1478-7644','서울 종로구 ㅇ나ㅣ룁ㅈ');
 insert into member values('id0252','pwpw9','sh','010-7954-3544','서울 종로구 야좁고멂');
 insert into member values('id0643','pwpw0','bj','010-3457-7663','서울 종로구 버라보뱝');
+
+select * from product;
+
+create table purchaselist(
+     id varchar(20)  ,
+     name varchar(20),
+     sizeS int(5),
+     sizeM int(5),
+     sizeL int(5),  
+     sizeXL int(5),
+     price int(20),
+     reCheck varchar(5),
+     pId int(5) primary key
+     );
+     Foreign key (id) references member (id);

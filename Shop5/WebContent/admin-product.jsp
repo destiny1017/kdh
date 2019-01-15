@@ -1,11 +1,11 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="java.util.HashMap"%>
-<%@page import="db.ProductDTO"%>
-<%@page import="db.ProductDAO"%>
-<%@page import="db.MemberDTO"%>
+<%@page import="bean.ProductDTO"%>
+<%@page import="bean.ProductDAO"%>
+<%@page import="bean.MemberDTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="db.MemberDAO"%>
+<%@page import="bean.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -92,7 +92,7 @@
 								class="s-text13 p-t-5 p-b-5"> 상품관리 </a></li>
 
 							<li class="p-t-6 p-b-8 bo7"><a href="#"
-								class="s-text13 p-t-5 p-b-5"> 게시판관리 </a></li>
+								class="s-text13 p-t-5 p-b-5"> 뭐하지 </a></li>
 						</ul>
 					</div>
 				</div>					
@@ -153,9 +153,10 @@
 										int rows = ("" + pages.length).equals(session.getAttribute(category)) ? lastPage : 8;
 										for(int j = 0; j < rows; j++) { 		
 										%>
-											<tr class="table-row" onclick="javascript:location.href='#'" id="tr<%=j%>">
+											<tr class="table-row" 
+											onclick="javascript:location.href='admin-product-mp.jsp?pId=<%=pages[pageNum-1][j].getPId() %>'" id="tr<%=j%>">
 												<td id="td<%=j%>_1"><%= pages[pageNum-1][j].getPId() %></td>
-												<td id="td<%=j%>_2"><img src="images/<%=pages[pageNum-1][j].getPId()%>_1.jpg" width="100"></td>
+												<td id="td<%=j%>_2"><img src="images/clothes/<%=pages[pageNum-1][j].getPId()%>_1.jpg" width="100"></td>
 												<td id="td<%=j%>_3"><%= pages[pageNum-1][j].getName() %></td>
 												<td id="td<%=j%>_4"><%= pages[pageNum-1][j].getPrice() %></td>
 											</tr>
@@ -176,7 +177,8 @@
 							</div>
 														
 							<br>
-							<button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4">상품 등록</button>
+							<button onclick="javascript:location.href='admin-product-d.jsp'" 
+							class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4">상품 등록</button>
 							</div>
 						</div>
 					<%} %>

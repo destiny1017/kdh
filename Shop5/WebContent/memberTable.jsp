@@ -1,6 +1,6 @@
-<%@page import="db.MemberDTO"%>
+<%@page import="bean.MemberDTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="db.MemberDAO"%>
+<%@page import="bean.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -55,7 +55,7 @@
 				<td class="s-text13 p-t-5 p-b-5"><%=pages[pageNum-1][i].getPw() %></td>											
 				<td class="s-text13 p-t-5 p-b-5"><%=pages[pageNum-1][i].getName() %></td>											
 				<td class="s-text13 p-t-5 p-b-5"><%=pages[pageNum-1][i].getTel() %></td>											
-				<td class="s-text13 p-t-5 p-b-5"><%=pages[pageNum-1][i].getAddr() %></td>											
+				<td class="s-text13 p-t-5 p-b-5"><%=pages[pageNum-1][i].getAddress() %></td>											
 
 			</tr>
 			<%} %>

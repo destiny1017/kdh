@@ -1,49 +1,67 @@
-<%@page import="db.MemberDTO"%>
+<%@page import="bean.ProductDAO"%>
+<%@page import="bean.ProductDTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="db.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 <meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
 <body>
-<%
-	MemberDAO dao = new MemberDAO();	
-	ArrayList<MemberDTO> member = dao.select();
-	String s = "1";
-	String test = (String) request.getParameter("t");
-	
-	pageContext.setAttribute(s, s);
-	int a = Integer.parseInt("" +  pageContext.getAttribute("1"));
-%>
-	<h3>${param.t}</h3>
-					<table class="table table-hover">
-						<tr>
-							<td></td>						
-							<td>ID</td>						
-							<td>pw</td>						
-							<td>이름</td>						
-							<td>연락처</td>						
-							<td>주소</td>						
-						</tr>
-						<%--
-						 --%>
-						<%for(int i = 0; i < member.size(); i++){%>
-						<tr>
-							<td><%=i %></td>
-							<td id="id<%=i%>"><%=member.get(i).getId() %></td>											
-							<td><%=member.get(i).getPw() %></td>											
-							<td><%=member.get(i).getName() %></td>											
-							<td><%=member.get(i).getTel() %></td>											
-							<td><%=member.get(i).getAddr() %></td>											
-						</tr>
-						<%} %>
+	<%
+		String kind = (String) request.getParameter("kind");
+		String num = (String) request.getParameter("num");
+		int number = Integer.parseInt(num);
+		ProductDAO pDAO = new ProductDAO();
+		ArrayList<ProductDTO> list=null;
+		if (kind.equals("all")) {
+			list = pDAO.getInfoALL();
+		} else {
+			list = pDAO.getInfoCategory(kind);
+		}
+	%>
+	<%
+		for (int i = 0; i < list.size(); i++) {
+			int j = 6*(number-1)+i;
+			if(i==6||j==list.size()){
+				break;
+			}
+	%>
+	<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
+		<!-- Block2 -->
+		<div class="block2">
+			<div
+				class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
+				<img src="images/clothes/<%=list.get(j).getPId()%>_1.jpg"
+					alt="<%=list.get(j).getName()%>">
 
-					</table>
+				<div class="block2-overlay trans-0-4">
+					<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
+						<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i> <i
+						class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
+					</a>
+
+					<div class="block2-btn-addcart w-size1 trans-0-4">
+						<!-- Button -->
+<!-- 						<button -->
+<!-- 							class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4"> -->
+<!-- 							Add to Cart</button> -->
+					</div>
+				</div>
+			</div>
+
+			<div class="block2-txt p-t-20">
+				<a href="product-detail.jsp?pId=<%=list.get(j).getPId()%>"
+					class="block2-name dis-block s-text3 p-b-5"> <%=list.get(j).getName()%>
+				</a> <span class="block2-price m-text6 p-r-5"> <%=list.get(j).getPrice()%>원
+				</span>
+			</div>
+		</div>
+	</div>
+	<%
+		}
+	%>
 
 </body>
+
 </html>
+
