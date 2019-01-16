@@ -12,7 +12,7 @@
     String tel = request.getParameter("tel");
     String address = request.getParameter("address");
 	
-	String url = "jdbc:mysql://localhost:3306/test2";
+	String url = "jdbc:mysql://localhost:3306/shop";
 	String user = "root";
 	String password = "1234";
 

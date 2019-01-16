@@ -77,3 +77,21 @@ create table purchaselist(
      pId int(5) primary key
      );
      Foreign key (id) references member (id);
+     
+     
+     
+create table orderlist(
+	id varchar(20),
+	name varchar(20),
+	sizeS int(5),
+	sizeM int(5),
+	sizeL int(5),
+	sizeXL int(5),
+	price int(10),
+	pId varchar(10) primary key,
+	transName varchar(20),
+	transNum varchar(10),
+	foreign key (id) references member (id)
+	);
+	
+	

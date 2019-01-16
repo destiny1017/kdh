@@ -1,4 +1,5 @@
 
+<%@page import="bean.*"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -12,23 +13,24 @@
 		
 	<%
 		String pId = request.getParameter("pId");
-	
-		String url = "jdbc:mysql://localhost:3306/test2";
-		String user = "root";
-		String password = "1234";
-
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection(url, user, password);
-		String sql = "delete from purchaselist where pId = ?";
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, pId);
-		ps.executeUpdate();
-		con.close();
-		ps.close();
-		out.println("<script language='javascript'>");
-	    out.println("alert('목록삭제 완료')");
-	    out.println("location.href='member_mod.jsp'");
-	    out.println("</script>");
+		String orpId = request.getParameter("orpId");
+		
+		if(orpId != null) {
+			OrderListDAO ordDao = new OrderListDAO();
+			ordDao.orderDelete(orpId);
+			out.println("<script language='javascript'>");
+		    out.println("alert('주문취소 완료')");
+		    out.println("location.href='member_ord.jsp'");
+		    out.println("</script>");
+		}else {
+			PurchaseListDAO purDao = new PurchaseListDAO();
+			purDao.purchaseDelete(pId);
+			out.println("<script language='javascript'>");
+		    out.println("alert('구매삭제 완료')");
+		    out.println("location.href='member_pur.jsp'");
+		    out.println("</script>");
+		}
+		
 	%>
 	
 

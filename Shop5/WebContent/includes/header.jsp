@@ -39,7 +39,7 @@
 	    String admin = (String) session.getAttribute("admin");
 		//id = "admin";
 		
-		String uId = "root";
+		String uId = id;
 		AddCartDAO dao = new AddCartDAO();
 		ArrayList<AddCartDTO> list = dao.getInfo(uId);
 		ProductDAO pDAO = new ProductDAO();
@@ -79,14 +79,12 @@
                
                
                		<%if(admin != null) {%>
-               		<%=admin %> 님 안녕하세요 
-               		<br>
+               		<%=admin %> 님 안녕하세요 &nbsp;&nbsp;              		
                		<a href="_logout.jsp" onclick="signOut()">Logout</a>
                		<%}else{%>
                		
                  	<%if (id != null) { %>	
-                 	<%=name %> 님 안녕하세요 
-					<br>
+                 	<%=name %> 님 안녕하세요  &nbsp;&nbsp;
 					<a href="_logout.jsp" onclick="signOut()">Logout</a>
 					<%}else{%>
                  
@@ -131,7 +129,7 @@
 							</li>
 
 							<li id="blog" class="menu-li">
-								<a href="blog.jsp">Blog</a>
+								<a href="notice.jsp">Board</a>
 							</li>
 
 							<li id="about" class="menu-li">

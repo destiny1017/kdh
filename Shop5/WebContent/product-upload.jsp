@@ -68,7 +68,6 @@
 		  File fileN = new File(path + pId + "_" + (i+1) + ".jpg");
 			
 		  if(file.exists()) {
-			  out.print(filename[i] + "<br>");
 			file.renameTo(fileN);
 		  }
 	 }

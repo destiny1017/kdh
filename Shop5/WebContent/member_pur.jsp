@@ -73,7 +73,10 @@
 						<ul>
 							<li class="p-t-6 p-b-8 bo6"><a href="member_mod.jsp"
 								class="s-text13 p-t-5 p-b-5"> 정보수정 </a></li>
-
+								
+							<li class="p-t-6 p-b-8 bo7"><a href="member_ord.jsp"
+								class="s-text13 p-t-5 p-b-5"> 주문목록 </a></li>
+							
 							<li class="p-t-6 p-b-8 bo7"><a href="member_pur.jsp"
 								class="s-text13 p-t-5 p-b-5"> 구매목록 </a></li>
 								
@@ -169,12 +172,17 @@
 				ps.close();
 				%>
 	 				<tr>
-	 					<td colspan="6" align="right">
-	 					<b>합 계</b> : <%=sum %>원 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	 					<input type="submit" value="확인">
-						<a href="about.jsp"> 돌아가기 </a> </td>
+	 					<td colspan="12" align="right">
+	 					<div>
+	 					<div  style="float: right; width: 20%">
+	 					<input type="submit" value="확인" class="btn btn-primary btn-large btn-block" style="width: 100px">
+	 					</div>
+	 					</div>
+	 					<div style="float: right; width: 30%">
+	 					<h5 style="float: right; width: 50%"><b>합 계</b> : &nbsp;<%=sum %>원 &nbsp;</h5>
+	 					</div>
+						</td>
+					</tr>
 						
 						
 						

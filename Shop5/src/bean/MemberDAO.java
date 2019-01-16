@@ -189,9 +189,9 @@ public class MemberDAO {
 		ps.setString(1, dto.getId());
 		ps.setString(2, dto.getPw());
 		ps.setString(3, dto.getName());
-		ps.setString(4, dto.getResNum());
-		ps.setString(5, dto.getTel());
-		ps.setString(6, dto.getAddress());
+		ps.setString(4, dto.getTel());
+		ps.setString(5, dto.getAddress());
+		ps.setString(6, dto.getResNum());
 		ps.setInt(7, dto.getAmount());
 		ps.executeUpdate();
 

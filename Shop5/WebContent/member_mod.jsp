@@ -65,7 +65,10 @@
 						<ul>
 							<li class="p-t-6 p-b-8 bo6"><a href="member_mod.jsp"
 								class="s-text13 p-t-5 p-b-5"> 정보수정 </a></li>
-
+															
+							<li class="p-t-6 p-b-8 bo7"><a href="member_ord.jsp"
+								class="s-text13 p-t-5 p-b-5"> 주문목록 </a></li>
+							
 							<li class="p-t-6 p-b-8 bo7"><a href="member_pur.jsp"
 								class="s-text13 p-t-5 p-b-5"> 구매목록 </a></li>
 							
@@ -108,7 +111,7 @@
 						if (rs.next()) {
 					%>
 					<tr>
-					<td><h5>ID :</h5></td>
+					<td style="align-items: center;"><h5>ID :</h5></td>
 					<td>
 					<div class="p-r-230 p-r-230-lg">
 						<div class="search-product pos-relative bo4 of-hidden sizefull s-text7 p-l-22 p-r-22">
@@ -123,7 +126,7 @@
 					<div class="p-r-230 p-r-230-lg">
 						<div class="search-product pos-relative bo4 of-hidden">
 							<input class="sizefull s-text7 p-l-22 p-r-22" type="password" 
-								name="password" value="<%=rs.getString("pw")%>">
+								name="pw" value="<%=rs.getString("pw")%>">
 						</div>
 					</div>
 					</td>
@@ -185,24 +188,28 @@
 					</td>
 					</tr>
 					</table>
+					<br>
 					<table>
 						<tr>
-							<td align="center">
+							<td align="center" class="p-r-10">
 							<input type="submit" class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4"
-								value="변경" style="width: 100px"></td><td><input type="button" value="회원 탈퇴" 
+								value="변경" style="width: 100px"></td>
+							<td><input type="button" value="회원 탈퇴" 
 								class="flex-c-m size2 bg1 bo-rad-23 hov1 m-text3 trans-0-4" style="width: 100px"
 								onClick="my_delete()"></td>
 						</tr>
 					</table>
 					</form>
 					<%
-						}
+						}else{%>
+							외부 아이디로 로그인 시 정보 수정이 불가능합니다.
+						<%}
 						con.close();
 						ps.close();
 						
 						} else {
 					 		out.println("<script language='javascript'>");
-					    	out.println("alert('회원가입후 이용해주세요')");
+					    	out.println("alert('로그인 후 이용해주세요')");
 					    	out.println("location.href='login.jsp'");
 					    	out.println("</script>");
 						}
@@ -212,20 +219,7 @@
 			</div>
 		</div>
 
-		<section class="bgwhite p-t-60">
-			<div class="col-md-4 col-lg-3 p-b-75">
-				<div class="rightbar">qwewqeqwdfq@@</div>
-			</div>
 
-
-		</section>
-
-
-
-		<br> <br> <br> <br> <br> <br> <br>
-		<br> <br>
-		<hr>
-		<br> <br> <br> <br> <br> <br>
 
 	</section>
 

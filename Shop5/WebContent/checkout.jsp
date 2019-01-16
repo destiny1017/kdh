@@ -9,7 +9,7 @@
 </head>
 <body>
 <%
-	String uId = "root";
+	String uId = (String) session.getAttribute("id");
 	CheckOutDAO dao = new CheckOutDAO();
 	dao.checkout(uId);
 %>

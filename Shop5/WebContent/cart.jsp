@@ -49,7 +49,7 @@
 </head>
 <body class="animsition">
 	<%
-		String uId = "root";
+		String uId = (String) session.getAttribute("id");
 		AddCartDAO cartDao = new AddCartDAO();
 		
 		ProductDAO pDao = new ProductDAO();

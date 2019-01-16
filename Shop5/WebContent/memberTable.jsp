@@ -9,6 +9,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+	<script type="text/javascript">
+	
+		function move(x){
+			var id = document.getElementById(x).childNodes[0].nodeValue;
+			location.href = "admin_member_mod.jsp?uId=" + id
+		}
+	
+	</script>
+
 </head>
 <body>
 <%
@@ -37,26 +46,25 @@
 	}
 %>
 		<table class="table table-hover">
-			<tr>
+			<tr class="m-text15">
 				<td>No.</td>						
 				<td>ID</td>						
 				<td>pw</td>						
-				<td>이름</td>						
-				<td>연락처</td>						
-				<td>주소</td>						
+				<td>Name</td>						
+				<td>Tel</td>						
+				<td>Address</td>						
 			</tr>
-
+			
 			<%
 			for(int i = 0; i < size; i++){%>
-			<tr onclick="javascript:location.href='#'">
+			<tr onclick="move(<%=i%>)">
 				<td><%=(pageNum-1)*10 + (i+1) %></td>
 
-				<td class="s-text13 p-t-5 p-b-5"><%=pages[pageNum-1][i].getId() %></td>											
+				<td class="s-text13 p-t-5 p-b-5" id="<%=i %>"><%=pages[pageNum-1][i].getId() %></td>											
 				<td class="s-text13 p-t-5 p-b-5"><%=pages[pageNum-1][i].getPw() %></td>											
 				<td class="s-text13 p-t-5 p-b-5"><%=pages[pageNum-1][i].getName() %></td>											
 				<td class="s-text13 p-t-5 p-b-5"><%=pages[pageNum-1][i].getTel() %></td>											
-				<td class="s-text13 p-t-5 p-b-5"><%=pages[pageNum-1][i].getAddress() %></td>											
-
+				<td class="s-text13 p-t-5 p-b-5"><%=pages[pageNum-1][i].getAddress() %></td>						
 			</tr>
 			<%} %>
 

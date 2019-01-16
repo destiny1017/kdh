@@ -75,6 +75,9 @@
 						<ul>
 							<li class="p-t-6 p-b-8 bo6"><a href="member_mod.jsp"
 								class="s-text13 p-t-5 p-b-5"> 정보수정 </a></li>
+																
+							<li class="p-t-6 p-b-8 bo7"><a href="member_ord.jsp"
+								class="s-text13 p-t-5 p-b-5"> 주문목록 </a></li>
 
 							<li class="p-t-6 p-b-8 bo7"><a href="member_pur.jsp"
 								class="s-text13 p-t-5 p-b-5"> 구매목록 </a></li>

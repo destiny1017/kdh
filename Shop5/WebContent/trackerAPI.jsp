@@ -106,7 +106,12 @@ tr:nth-child(even) {
 </style>
 <script
   src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="crossorigin="anonymous"></script>
-  
+<% 
+				
+	String transNum = request.getParameter("transNum"); 
+	String transName = request.getParameter("transName");
+	System.out.println(transName);
+%>  
 <script>
 
 $(document).ready(function(){
@@ -118,7 +123,7 @@ $(document).ready(function(){
             dataType : "json",
             url:"http://info.sweettracker.co.kr/api/v1/companylist?t_key="+myKey,
             success:function(data){
-            		
+            		var a = [];
             		// 방법 1. JSON.parse 이용하기
             		var parseData = JSON.parse(JSON.stringify(data));
              		console.log(parseData.Company); // 그중 Json Array에 접근하기 위해 Array명 Company 입력
@@ -127,14 +132,24 @@ $(document).ready(function(){
             		var CompanyArray = data.Company; // Json Array에 접근하기 위해 Array명 Company 입력
             		console.log(CompanyArray); 
             		
+            		
+            		
             		var myData="";
+            		
             		$.each(CompanyArray,function(key,value) {
-	            			myData += ('<option value='+value.Code+'>' +'key:'+key+', Code:'+value.Code+',Name:'+value.Name + '</option>');        				
+            			
+            			console.log(key);	
+            			<%if(transName !=null) {%>
+	            		myData = ('<option value='+value.Code+'>' + 'Name:'+"<%=transName%>" + '</option>');  
+            			<%}else {%>
+	            		myData += ('<option value='+value.Code+'>' + 'Name:'+value.Name + '</option>');
+            			<%}%>
+	            			
             		});
             		$("#tekbeCompnayList").html(myData);
             }
         });
-
+		
 		// 배송정보와 배송추적 tracking-api
         $("#myButton1").click(function() {
         	var t_code = $('#tekbeCompnayList option:selected').attr('value');
@@ -211,7 +226,8 @@ $(document).ready(function(){
 		style="background-image: url(images/heading-pages-06.jpg);">
 		<h2 class="l-text2 t-center">Mypage</h2>
 	</section>
-
+	
+	
 	<section class="bgwhite p-t-60">
 		<div class="container">
 			<div class="row">
@@ -224,20 +240,22 @@ $(document).ready(function(){
 						<ul>
 							<li class="p-t-6 p-b-8 bo6"><a href="member_mod.jsp"
 								class="s-text13 p-t-5 p-b-5"> 정보수정 </a></li>
-
+								
+							<li class="p-t-6 p-b-8 bo7"><a href="member_ord.jsp"
+								class="s-text13 p-t-5 p-b-5"> 주문목록 </a></li>
+							
 							<li class="p-t-6 p-b-8 bo7"><a href="member_pur.jsp"
 								class="s-text13 p-t-5 p-b-5"> 구매목록 </a></li>
 							
 							<li class="p-t-6 p-b-8 bo6"><a href="member_ran.jsp"
 								class="s-text13 p-t-5 p-b-5"> 회원등급 </a></li>
-							
+
 							<li class="p-t-6 p-b-8 bo7"><a href="trackerAPI.jsp"
 								class="s-text13 p-t-5 p-b-5"> 배송조회 </a></li>
 						</ul>
 					</div>
 				</div>
-
-
+				
 				<div class="col-md-4 col-lg-10 p-b-75">
 					<h4 class="m-text23 p-t-20 p-b-14">배송조회</h4>
 					<hr>
@@ -245,7 +263,11 @@ $(document).ready(function(){
 				<select id="tekbeCompnayList" name="tekbeCompnayList"></select><br/><br/>
 
 				<span id="invoiceNumber">운송장번호: </span>
-				<input type="text" id="invoiceNumberText" name="invoiceNumberText"><br/><br/>
+				<%if(transNum != null) { %>
+				<input type="text" id="invoiceNumberText" name="invoiceNumberText" value="<%=transNum%>"><br/><br/>
+				<%}else { %>
+				<input type="text" id="invoiceNumberText" name="invoiceNumberText" value=""><br/><br/>
+				<%} %>
 				<button id="myButton1">택배 조회하기 </button>
 				<br/>
 				<br/>
@@ -256,9 +278,6 @@ $(document).ready(function(){
 				<div>
 					<table id="myPtag2"></table>
 				</div>
-
-
-
 
 				</div>
 			</div>
