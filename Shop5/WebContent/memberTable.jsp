@@ -46,7 +46,7 @@
 	}
 %>
 		<table class="table table-hover">
-			<tr class="m-text15">
+			<tr class="m-text15" style="background: #f2f2f2;">
 				<td>No.</td>						
 				<td>ID</td>						
 				<td>pw</td>						

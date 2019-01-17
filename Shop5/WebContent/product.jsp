@@ -56,13 +56,14 @@
 		}
 		ProductDTO pDTO = new ProductDTO();
 	%>
+	
 	<!-- Header -->
  	<jsp:include page="includes/header.jsp" flush="false" /> 
 	
 	<input type="hidden" id="kind" value="<%=kind %>">
 	<!-- Title Page -->
 	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m"
-		style="background-image: url(images/headimg2.jpg);">
+		style="background-image: url(images/headimg1.jpg);">
 		<h2 class="l-text2 t-center">For <%=kind %></h2>
 		<p class="m-text13 t-center">New Arrivals <%=kind %> Collection 2018</p>
 	</section>

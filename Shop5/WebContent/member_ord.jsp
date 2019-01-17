@@ -88,11 +88,10 @@
 						</ul>
 					</div>
 				</div>
-				
+					
 				<%
 				
 				String id = (String) session.getAttribute("id");
-				//String id = "werty45";
 				
 				if(id != null) {
 				
@@ -101,8 +100,7 @@
 				<div class="col-md-4 col-lg-10 p-b-75">
 					<h4 class="m-text23 p-t-20 p-b-14"><%=id %>님의 주문리스트</h4>
 					<hr>
-					
-				
+									
 				<br>
 				<table border='1'>
 					<tr>
@@ -193,15 +191,11 @@
 			</table>
 	 					<div>
 						<a href="about.jsp"> 돌아가기 </a></div> 
-				
-					
-					
 
 				</div>
 			</div>
 		</div>
 		
-
 	</section>
 	
 	<!-- Footer -->

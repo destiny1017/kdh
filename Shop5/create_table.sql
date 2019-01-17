@@ -95,3 +95,23 @@ create table orderlist(
 	);
 	
 	
+insert into member values('awqe323','asdwq1','ourname','010-5454-1231','경기 화성시 헤헤헤헤','871108-1832433', 0);
+insert into member values('fasf346','urty3','ourname','010-5454-1231','경기 화성시 헤헤헤헤','811108-2832433', 0);
+insert into member values('asdgag45','dfg4','ourname','010-5454-1231','경기 화성시 헤헤헤헤','791108-1832433', 0);
+insert into member values('vxczwer1','we13434','ourname','010-5454-1231','경기 화성시 헤헤헤헤','921108-2832433', 0);
+insert into member values('sdfagadfag','erery8956','ourname','010-5454-1231','경기 화성시 헤헤헤헤','041108-1832433', 0);
+insert into member values('asdgfdge45','sdfgre32','ourname','010-5454-1231','경기 화성시 헤헤헤헤','931108-2832433', 0);
+insert into member values('agdf2','scvxb3','ourname','010-5454-1231','경기 화성시 헤헤헤헤','911108-2832433', 0);
+insert into member values('asdfwe2','wqdgs33','ourname','010-5454-1231','경기 화성시 헤헤헤헤','011108-1832433', 0);
+insert into member values('dfbhfdngfh5','werwe3a','ourname','010-5454-1231','경기 화성시 헤헤헤헤','971108-1832433', 0);
+insert into member values('ertrwui2','sdfewr345','ourname','010-5454-1231','경기 화성시 헤헤헤헤','831108-2832433', 0);
+insert into member values('rtret32','sdfewr345','ourname','010-5454-1231','경기 화성시 헤헤헤헤','731108-1832433', 0);
+insert into member values('cvbcx6','sdfewr345','ourname','010-5454-1231','경기 화성시 헤헤헤헤','691108-2832433', 0);
+insert into member values('tryrthgf56','sdfewr345','ourname','010-5454-1231','경기 화성시 헤헤헤헤','671108-2832433', 0);
+insert into member values('rewy77','sdfewr345','ourname','010-5454-1231','경기 화성시 헤헤헤헤','861118-1832433', 0);
+insert into member values('xcvbd4','sdfewr345','ourname','010-5454-1231','경기 화성시 헤헤헤헤','931108-2832433', 0);
+insert into member values('qwsdfg2','sdfewr345','ourname','010-5454-1231','경기 화성시 헤헤헤헤','101108-1832433', 0);
+insert into member values('ertrtw324','sdfewr345','ourname','010-5454-1231','경기 화성시 헤헤헤헤','091108-1832433', 0);
+insert into member values('kyuli74','sdfewr345','ourname','010-5454-1231','경기 화성시 헤헤헤헤','031108-1832433', 0);
+insert into member values('ghjkhjk99','sdfewr345','ourname','010-5454-1231','경기 화성시 헤헤헤헤','081108-1832433', 0);
+insert into member values('dfhddi90','sdfewr345','ourname','010-5454-1231','경기 화성시 헤헤헤헤','061108-1832433', 0);

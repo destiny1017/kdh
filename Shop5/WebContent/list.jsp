@@ -98,7 +98,7 @@
 						</tbody>		
 					</table>
 					<DIV class='aside_menu'>
- 						<FORM name='frm' method='GET' action='list.jsp'>
+ 						<FORM name='frm' method="post" action='list.jsp?bbsCategories=<%=bbsCategories %>'>
    							<ASIDE style='float: right;'>
     					 		<SELECT name='col'> <!-- 검색 컬럼 -->
         							<OPTION value='none'>전체 목록</OPTION>

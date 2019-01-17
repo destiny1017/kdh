@@ -358,4 +358,101 @@ public class MemberDAO {
 		return dto;
 	}
 	
+	public int[] selectGender() throws Exception {
+	      String url = "jdbc:mysql://localhost:3306/shop";
+	      String user = "root";
+	      String password = "1234";
+	      
+	      Class.forName("com.mysql.jdbc.Driver");
+	      Connection con = DriverManager.getConnection(url, user, password);
+	      String sql = "select * from member";
+	      PreparedStatement ps = con.prepareStatement(sql);
+	      int[] gender = new int[2];
+	      ResultSet rs = ps.executeQuery();
+	      int man =0;
+	      int woman =0;
+	   
+	      while (rs.next()) {
+	         if(rs.getString("resNum").charAt(7)=='1'||rs.getString("resNum").charAt(7)=='3') {
+	            man++;
+	         }else if(rs.getString("resNum").charAt(7)=='2'||rs.getString("resNum").charAt(7)=='4') {
+	            woman++;
+	         }
+	         gender[0] = man;
+	         gender[1] = woman;
+	         
+	      }
+
+	      con.close();
+	      ps.close();
+	      rs.close();
+
+	      return gender;
+	      
+	   }
+	
+	   public int[] selectAge() throws Exception {
+	      String url = "jdbc:mysql://localhost:3306/shop";
+	      String user = "root";
+	      String password = "1234";
+	      
+	      Class.forName("com.mysql.jdbc.Driver");
+	      Connection con = DriverManager.getConnection(url, user, password);
+	      String sql = "select * from member";
+	      PreparedStatement ps = con.prepareStatement(sql);
+	      int[] ageGroup = new int[5];
+	      ResultSet rs = ps.executeQuery();
+	      int teenage =0;
+	      int twenties =0;
+	      int thirties =0;
+	      int forties =0;
+	      int fifties =0;
+	      
+	      
+	      while (rs.next()) {
+	         int age=Integer.parseInt(rs.getString("resNum").substring(0, 2));
+	         if(rs.getString("resNum").charAt(7)=='1'||rs.getString("resNum").charAt(7)=='2') {
+	            age= 2018-(1900+age)+1;
+	            System.out.println(age);
+	            if(age>=0 && age<20) {
+	               teenage++;
+	            }else if(age>=20 && age<30) {
+	               twenties++;
+	            }else if(age>=30 && age<40) {
+	               thirties++;
+	            }else if(age>=40 && age<50) {
+	               forties++;
+	            }else if(age>=50 && age<60) {
+	               fifties++;
+	            }
+	         }else if(rs.getString("resNum").charAt(7)=='3'||rs.getString("resNum").charAt(7)=='4') {
+	            age= 2018-(2000+age)+1;
+	            if(age>=10 && age<20) {
+	               teenage++;
+	            }else if(age>=20 && age<30) {
+	               twenties++;
+	            }else if(age>=30 && age<40) {
+	               thirties++;
+	            }else if(age>=40 && age<50) {
+	               forties++;
+	            }else if(age>=50 && age<60) {
+	               fifties++;
+	            }
+	         }
+	         ageGroup[0] = teenage;
+	         ageGroup[1] = twenties;
+	         ageGroup[2] = thirties;
+	         ageGroup[3] = forties;
+	         ageGroup[4] = fifties;
+	         
+	      }
+	      
+	      con.close();
+	      ps.close();
+	      rs.close();
+	      
+	      return ageGroup;
+	      
+	   }
+	
 }

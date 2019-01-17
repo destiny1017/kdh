@@ -72,8 +72,8 @@
 							<li class="p-t-6 p-b-8 bo7"><a href="admin-product.jsp"
 								class="s-text13 p-t-5 p-b-5"> 상품관리 </a></li>
 
-							<li class="p-t-6 p-b-8 bo7"><a href="#"
-								class="s-text13 p-t-5 p-b-5"> 게시판관리 </a></li>
+							<li class="p-t-6 p-b-8 bo7"><a href="admin-statistics.jsp"
+								class="s-text13 p-t-5 p-b-5"> 통계 </a></li>
 						</ul>
 					</div>
 				</div>					
@@ -91,7 +91,7 @@
 						</div>
 					</div>
 					<br>
-					<div style="background: white; width: 900px; height: 800px;" id="memTb">
+					<div style="background: white; width: 900px; height: auto;" id="memTb">
 				
 					  <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 					  <script type="text/javascript">

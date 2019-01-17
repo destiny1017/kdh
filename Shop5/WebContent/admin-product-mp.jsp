@@ -128,8 +128,8 @@
 						<li class="p-t-6 p-b-8 bo7"><a href="admin-product.jsp"
 							class="s-text13 p-t-5 p-b-5"> 상품관리 </a></li>
 
-						<li class="p-t-6 p-b-8 bo7"><a href="#"
-							class="s-text13 p-t-5 p-b-5"> 게시판관리 </a></li>
+						<li class="p-t-6 p-b-8 bo7"><a href="admin-statistics.jsp"
+							class="s-text13 p-t-5 p-b-5"> 통계 </a></li>
 					</ul>
 				</div>
 			</div>

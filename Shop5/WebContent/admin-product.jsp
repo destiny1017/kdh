@@ -91,8 +91,8 @@
 							<li class="p-t-6 p-b-8 bo7"><a href="admin-product.jsp"
 								class="s-text13 p-t-5 p-b-5"> 상품관리 </a></li>
 
-							<li class="p-t-6 p-b-8 bo7"><a href="#"
-								class="s-text13 p-t-5 p-b-5"> 뭐하지 </a></li>
+							<li class="p-t-6 p-b-8 bo7"><a href="admin-statistics.jsp"
+								class="s-text13 p-t-5 p-b-5"> 통계 </a></li>
 						</ul>
 					</div>
 				</div>					
@@ -119,7 +119,7 @@
 							<div class="dropdown-content dis-none p-t-15 p-b-23">
 								<p class="s-text8">
 									<table class="table-shopping-cart table-hover">
-										<tr class="table-head">
+										<tr class="table-head" style="font-weight: bold;">
 											<td>상품ID</td>
 											<td>사진</td>
 											<td>상품명</td>
