@@ -1,6 +1,7 @@
 package bean;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,13 +53,13 @@ public class BbsDAO {
 		return -1;
 	}
 
-	public int write(String bbsTitle, String bbsContent, String bbsCategories) {
+	public int write(String bbsTitle, String bbsContent, String bbsCategories, String uId) {
 		String sql = "insert into bbs_" + bbsCategories +  " values (?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, getNext(bbsCategories));
 			pstmt.setString(2, bbsTitle);
-			pstmt.setString(3, "admin");	// �� ���̵�
+			pstmt.setString(3, uId);	// �� ���̵�
 			pstmt.setString(4, getDate());
 			pstmt.setString(5, bbsContent);
 			pstmt.setString(6, bbsCategories);
@@ -71,13 +72,13 @@ public class BbsDAO {
 		return -1; // ����
 	}
 	
-	public int reviewWrite(String bbsTitle, String bbsContent, String bbsCategories, String fileName1, String star) {
+	public int reviewWrite(String bbsTitle, String bbsContent, String bbsCategories, String fileName1, String star, String uId) {
 		String sql = "insert into bbs_" + bbsCategories +  " values (?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, getNext(bbsCategories));
 			pstmt.setString(2, bbsTitle);
-			pstmt.setString(3, "admin");	// �� ���̵�
+			pstmt.setString(3, uId);	// �� ���̵�
 			pstmt.setString(4, getDate());
 			pstmt.setString(5, bbsContent);
 			pstmt.setString(6, bbsCategories);
@@ -345,13 +346,13 @@ public class BbsDAO {
 		return list;
 	}
 	
-	public int qaReply(String bbsTitle, String bbsContent, String bbsCategories, String bbsId) {
+	public int qaReply(String bbsTitle, String bbsContent, String bbsCategories, String bbsId, String uId) {
 		String sql = "insert into bbs_qa values (?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, getNext(bbsCategories));
 			pstmt.setString(2, bbsTitle);
-			pstmt.setString(3, "admin");	// �� ���̵�
+			pstmt.setString(3, uId);	// �� ���̵�
 			pstmt.setString(4, getDate());
 			pstmt.setString(5, bbsContent);
 			pstmt.setString(6, bbsCategories);

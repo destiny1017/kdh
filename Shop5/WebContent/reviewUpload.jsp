@@ -5,7 +5,7 @@
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <head>
@@ -16,11 +16,17 @@
 <%
     // request.getRealPath("상대경로") 를 통해 파일을 저장할 절대 경로를 구해온다.
     // 운영체제 및 프로젝트가 위치할 환경에 따라 경로가 다르기 때문에 아래처럼 구해오는게 좋음
-    String uploadPath = request.getRealPath("/WebContent/uploadFile");
+    String uploadPath = request.getRealPath("/uploadFile");
      
     int maxSize = 1024 * 1024 * 10; // 한번에 올릴 수 있는 파일 용량 : 10M로 제한
     
     String bbsCategories = request.getParameter("bbsCategories");
+    String userId = (String) session.getAttribute("id");
+    String admin = (String)session.getAttribute("admin");
+    if(admin!=null){
+    	userId=admin;
+    }
+    
     
     String bbsTitle = "";
     String bbsContent = "";
@@ -33,7 +39,7 @@
      
     MultipartRequest multi = null;
      
-    try{
+
         // request,파일저장경로,용량,인코딩타입,중복파일명에 대한 기본 정책
         multi = new MultipartRequest(request,uploadPath,maxSize,"utf-8",new DefaultFileRenamePolicy());
          
@@ -59,35 +65,33 @@
             // input file name에 해당하는 실재 파일을 가져옴
             File file = multi.getFile(file1);
             // 그 파일 객체의 크기를 알아냄
-            fileSize = file.length();
+//             fileSize = file.length();
         }
-    }catch(Exception e){
-        e.printStackTrace();
-    }
+   
     
     
-	if(bbsTitle == null || bbsContent == null) {
-		PrintWriter script = response.getWriter();
-		script.println("<script>");
-		script.println("alert('제목과 내용을 입력하세요')");
-		script.println("history.back()");
-		script.println("</script>");	
-	}
-	else {
-		BbsDAO dao = new BbsDAO();
-		int result = dao.reviewWrite(bbsTitle, bbsContent, bbsCategories, fileName1, star);
-		if(result == -1) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('글쓰기에 실패했습니다')");
-			script.println("history.back()");
-			script.println("</script>");	
-		}
-		else {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("location.href = '" + bbsCategories + ".jsp'");
-			script.println("</script>");	
-		}
-	}
+   if(bbsTitle == null || bbsContent == null) {
+      PrintWriter script = response.getWriter();
+      script.println("<script>");
+      script.println("alert('제목과 내용을 입력하세요')");
+      script.println("history.back()");
+      script.println("</script>");   
+   }
+   else {
+      BbsDAO dao = new BbsDAO();
+      int result = dao.reviewWrite(bbsTitle, bbsContent, bbsCategories, fileName1, star, userId);
+      if(result == -1) {
+         PrintWriter script = response.getWriter();
+         script.println("<script>");
+         script.println("alert('글쓰기에 실패했습니다')");
+         script.println("history.back()");
+         script.println("</script>");   
+      }
+      else {
+         PrintWriter script = response.getWriter();
+         script.println("<script>");
+         script.println("location.href = '" + bbsCategories + ".jsp'");
+         script.println("</script>");   
+      }
+   }
 %>

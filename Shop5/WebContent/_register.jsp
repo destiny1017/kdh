@@ -54,12 +54,11 @@
 		dto.setAddress(address);
 		dto.setAmount(amount);
 		dao.insert(dto);
-		out.println("<script> alert(\"회원가입완료\"); history.back(); </script>");
-			
+		out.println("<script> alert(\"회원가입완료\"); location.href='login.jsp'; </script>");
 		}
 		
-		
 	%>	
+	
 	
 </body>
 </html>

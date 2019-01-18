@@ -12,6 +12,11 @@
 <% 
 	request.setCharacterEncoding("utf-8"); 
 	
+	String admin = (String)session.getAttribute("admin");
+	String userId = (String) session.getAttribute("id");
+	if(admin!=null){
+		userId=admin;
+	}
 	String bbsCategories = request.getParameter("bbsCategories");
 	String bbsTitle = request.getParameter("bbsTitle");
 	String bbsContent = request.getParameter("bbsContent");
@@ -33,7 +38,7 @@
 		}
 		else {
 			BbsDAO dao = new BbsDAO();
-			int result = dao.write(bbsTitle, bbsContent, bbsCategories);
+			int result = dao.write(bbsTitle, bbsContent, bbsCategories, userId);
 			if(result == -1) {
 				PrintWriter script = response.getWriter();
 				script.println("<script>");

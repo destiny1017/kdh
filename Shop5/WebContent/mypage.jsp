@@ -113,7 +113,6 @@
 		<section class="bgwhite p-t-60">
 			<div class="col-md-4 col-lg-3 p-b-75">
 					<div class="rightbar">
-						qwewqeqwdfq@@
 						</div>
 					</div>
 
@@ -177,9 +176,6 @@
 			dropdownParent: $('#dropDownSelect2')
 		});
 	</script>
-<!--===============================================================================================-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-	<script src="js/map-custom.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 

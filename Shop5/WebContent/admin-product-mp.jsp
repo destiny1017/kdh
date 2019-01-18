@@ -16,7 +16,13 @@
 	ProductDAO dao = new ProductDAO();
 	ProductDTO dto = dao.getInfo(pId);
 	
-	
+	String admin = (String)session.getAttribute("admin");
+	   if(admin==null){
+		   out.println("<script type='text/javascript'>");
+		   out.println("alert('관리자 계정으로 로그인 후 이용 해주시기 바랍니다.');");
+		   out.println("location.href='index.jsp';");
+		   out.println("</script>");
+	   }
 	
 %>
 
@@ -129,7 +135,7 @@
 							class="s-text13 p-t-5 p-b-5"> 상품관리 </a></li>
 
 						<li class="p-t-6 p-b-8 bo7"><a href="admin-statistics.jsp"
-							class="s-text13 p-t-5 p-b-5"> 통계 </a></li>
+								class="s-text13 p-t-5 p-b-5"> 통계 </a></li>
 					</ul>
 				</div>
 			</div>
@@ -348,10 +354,6 @@
 			dropdownParent : $('#dropDownSelect2')
 		});
 	</script>
-	<!--===============================================================================================-->
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-	<script src="js/map-custom.js"></script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
 

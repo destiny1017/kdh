@@ -18,7 +18,7 @@
 		if(id.equals("admin") && pw.equals("1234")) {
 		String admin ="관리자";
 		session.setAttribute("admin", admin);
-		response.sendRedirect("http://localhost:8888/Shop5/about.jsp");
+		response.sendRedirect("about.jsp");
 		}else {
 		try {
 			MemberDAO dao = new MemberDAO();
@@ -38,7 +38,7 @@
 						
 					}
 					//메인으로이동
-					response.sendRedirect("http://localhost:8888/Shop5/about.jsp");
+					response.sendRedirect("index.jsp");
 					
 				}else {
 					

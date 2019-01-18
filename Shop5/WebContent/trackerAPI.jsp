@@ -111,6 +111,7 @@ tr:nth-child(even) {
 	String transNum = request.getParameter("transNum"); 
 	String transName = request.getParameter("transName");
 	System.out.println(transName);
+				
 %>  
 <script>
 
@@ -123,7 +124,7 @@ $(document).ready(function(){
             dataType : "json",
             url:"http://info.sweettracker.co.kr/api/v1/companylist?t_key="+myKey,
             success:function(data){
-            		var a = [];
+            		
             		// 방법 1. JSON.parse 이용하기
             		var parseData = JSON.parse(JSON.stringify(data));
              		console.log(parseData.Company); // 그중 Json Array에 접근하기 위해 Array명 Company 입력
@@ -132,24 +133,21 @@ $(document).ready(function(){
             		var CompanyArray = data.Company; // Json Array에 접근하기 위해 Array명 Company 입력
             		console.log(CompanyArray); 
             		
-            		
-            		
             		var myData="";
             		
             		$.each(CompanyArray,function(key,value) {
-            			
-            			console.log(key);	
-            			<%if(transName !=null) {%>
-	            		myData = ('<option value='+value.Code+'>' + 'Name:'+"<%=transName%>" + '</option>');  
-            			<%}else {%>
-	            		myData += ('<option value='+value.Code+'>' + 'Name:'+value.Name + '</option>');
-            			<%}%>
-	            			
+            			if(<%=transNum%> != null) { 
+            				
+	            			myData = ('<option value='+value.Code+'>' + "<%=transName%>" + '</option>');        				
+            			}else {
+            				
+	            			myData += ('<option value='+value.Code+'>' + value.Name + '</option>');        				
+            			}
             		});
             		$("#tekbeCompnayList").html(myData);
             }
         });
-		
+
 		// 배송정보와 배송추적 tracking-api
         $("#myButton1").click(function() {
         	var t_code = $('#tekbeCompnayList option:selected').attr('value');
@@ -218,8 +216,7 @@ $(document).ready(function(){
 </script>
 <body class="animsition">
 
-	<!-- Header -->
-	<jsp:include page="includes/header.jsp" flush="false" />
+	
 
 	<!-- Title Page -->
 	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m"
@@ -255,6 +252,8 @@ $(document).ready(function(){
 						</ul>
 					</div>
 				</div>
+
+			
 				
 				<div class="col-md-4 col-lg-10 p-b-75">
 					<h4 class="m-text23 p-t-20 p-b-14">배송조회</h4>
@@ -279,6 +278,8 @@ $(document).ready(function(){
 					<table id="myPtag2"></table>
 				</div>
 
+
+
 				</div>
 			</div>
 		</div>
@@ -300,8 +301,7 @@ $(document).ready(function(){
 
 	</section>
 
-	<!-- Footer -->
-	<jsp:include page="includes/footer.jsp" flush="false" />
+
 
 	<!-- Back to top -->
 	<div class="btn-back-to-top bg0-hov" id="myBtn">
@@ -338,10 +338,6 @@ $(document).ready(function(){
 			dropdownParent : $('#dropDownSelect2')
 		});
 	</script>
-	<!--===============================================================================================-->
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-	<script src="js/map-custom.js"></script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
 

@@ -52,7 +52,7 @@
 		ProductDTO pDTO = pDAO.getInfo(pId);
 		ArrayList<ProductDTO> kindList =pDAO.getInfoCategory(pDTO.getCategory());
 		
-		File file = new File("C:\\Users\\user\\git\\shopping\\Shop5\\WebContent\\images\\clothes");
+		File file = new File("C:\\Users\\user\\git\\shopping\\Shop5\\WebContent\\images\\clothes\\");
 		String[] list = file.list();
 		ArrayList<String> list2 = new ArrayList<>();
 		for(int i = 0; i<list.length; i++){
@@ -152,19 +152,6 @@
 					</div>
 
 					<div class="flex-m flex-w">
-<!-- 						<div class="s-text15 w-size15 t-center"> -->
-<!-- 							Color -->
-<!-- 						</div> -->
-
-<!-- 						<div class="rs2-select2 rs3-select2 bo4 of-hidden w-size16"> -->
-<!-- 							<select class="selection-2" name="color"> -->
-<!-- <!-- 								<option>Choose an option</option> --> 
-<!-- 								<option>Gray</option> -->
-<!-- 								<option>Red</option> -->
-<!-- 								<option>Black</option> -->
-<!-- 								<option>Blue</option> -->
-<!-- 							</select> -->
-<!-- 						</div> -->
 					</div>
 
 					<div class="flex-r-m flex-w p-t-10">

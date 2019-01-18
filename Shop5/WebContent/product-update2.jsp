@@ -13,7 +13,7 @@
 	 String filename1 = "";
 	 int maxSize = 1024*1024*5;
 	 String encType = "UTF-8";
-	 String savefile = "images\\clothes";
+	 String savefile = "images/clothes";
 	 ServletContext scontext = getServletContext();
 	 realFolder = scontext.getRealPath(savefile);
 	 String[] filename = new String[3];
@@ -28,7 +28,7 @@
 	 String sizeL = "";
 	 String sizeXL = "";
 	 
-	 String path = "C:\\Users\\user\\git\\shopping\\Shop5\\WebContent\\images\\clothes\\";
+	 String path = "images/clothes";
 	 
 	 ProductDAO dao = new ProductDAO();
 	 ProductDTO dto = null;

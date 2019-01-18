@@ -3,6 +3,7 @@ package bean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class CheckOutDAO {
 	DBConnectionMgr pool;
@@ -37,5 +38,24 @@ public class CheckOutDAO {
 
 		pool.freeConnection(con, ps, rs);
 
+	}
+	
+	public ArrayList<CheckOutDTO> getCheckOutInfo(String uId) throws Exception {
+		con = pool.getConnection();
+		
+		String sql = "select * from checkout where uid = '" + uId + "'";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		ArrayList<CheckOutDTO> list = new ArrayList<>();
+		while (rs.next()) {
+			list.add(new CheckOutDTO(
+						rs.getString("uid"),
+						rs.getString("pid"),
+						rs.getString("size"),
+						rs.getString("count")					
+					));		
+		}
+		return list;
 	}
 }

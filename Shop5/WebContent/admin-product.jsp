@@ -10,6 +10,13 @@
     pageEncoding="UTF-8"%>
     
 <%
+	String admin = (String)session.getAttribute("admin");
+	if(admin==null){
+		   out.println("<script type='text/javascript'>");
+		   out.println("alert('관리자 계정으로 로그인 후 이용 해주시기 바랍니다.');");
+		   out.println("location.href='index.jsp';");
+		   out.println("</script>");
+	}
 	
 	ProductDAO dao = new ProductDAO();
 	ArrayList<ProductDTO> list = dao.getInfoALL();
@@ -119,7 +126,7 @@
 							<div class="dropdown-content dis-none p-t-15 p-b-23">
 								<p class="s-text8">
 									<table class="table-shopping-cart table-hover">
-										<tr class="table-head" style="font-weight: bold;">
+										<tr class="table-head">
 											<td>상품ID</td>
 											<td>사진</td>
 											<td>상품명</td>
@@ -227,9 +234,6 @@
 			dropdownParent: $('#dropDownSelect2')
 		});
 	</script>
-<!--===============================================================================================-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-	<script src="js/map-custom.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 

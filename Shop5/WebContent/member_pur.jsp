@@ -189,7 +189,7 @@
 						
 			<% }else {
 				out.println("<script language='javascript'>");
-		        out.println("alert('회원가입후 이용해주세요')");
+		        out.println("alert('로그인 후 이용해주세요')");
 		        out.println("location.href='login.jsp'");
 		        out.println("</script>");
 			
@@ -287,9 +287,6 @@
 			dropdownParent: $('#dropDownSelect2')
 		});
 	</script>
-<!--===============================================================================================-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-	<script src="js/map-custom.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 

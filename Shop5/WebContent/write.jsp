@@ -90,7 +90,16 @@
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
-
+	<% String id = (String)session.getAttribute("id");
+		String admin = (String)session.getAttribute("admin");
+	   if(id==null&&admin==null){
+		   out.println("<script type='text/javascript'>");
+		   out.println("alert('로그인 후 이용 해주시기 바랍니다.');");
+		   out.println("history.back();");
+		   out.println("</script>");
+	   }
+	%>
+		
 	<!-- Header -->
 	<jsp:include page="includes/header.jsp" flush="false" />
 	

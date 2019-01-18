@@ -13,7 +13,7 @@
 	 String filename1 = "";
 	 int maxSize = 1024*1024*5;
 	 String encType = "UTF-8";
-	 String savefile = "images\\clothes";
+	 String savefile = "images/clothes";
 	 ServletContext scontext = getServletContext();
 	 realFolder = scontext.getRealPath(savefile);
 	 String[] filename = new String[3];
@@ -28,12 +28,12 @@
 	 String sizeL = "";
 	 String sizeXL = "";
 	 
-	 String path = "C:\\Users\\user\\git\\shopping\\Shop5\\WebContent\\images\\clothes\\";
+	 String path = "images/clothes";
 	 
 	 ProductDAO dao = new ProductDAO();
 	 ProductDTO dto = null;
 	 
-	 try{
+	 
 	  MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
 	
 	  Enumeration<?> files = multi.getFileNames();
@@ -49,7 +49,7 @@
 	  sizeXL = multi.getParameter("sizeXL");
 	  
 	  dto = new ProductDTO(pId, name, explanation, price, sizeS, sizeM, sizeL, sizeXL, category);
-	  dao.addProduct(dto);
+	 
 	  
 	  for(int i = 0; i < 3; i++){
 		  String file1 = (String)files.nextElement();
@@ -58,10 +58,8 @@
 	  }
 	  
 	  
-	 } catch(Exception e) {
-	  e.printStackTrace();
-	 }
 	 
+	 dao.addProduct(dto);
 	 for(int i = 0; i < 3; i++){
 		 
 		  File file = new File(path + filename[i]);
@@ -74,7 +72,7 @@
 	 
 %>
 <script>
-	alert("상품 등록에 성공하였습니다.")
+	alert("<%=dto.toString()%>상품 등록에 성공하였습니다.")
 	location.href = "admin-product.jsp"
 </script>
 

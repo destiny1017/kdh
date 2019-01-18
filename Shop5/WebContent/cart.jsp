@@ -61,7 +61,8 @@
 		}
 		
 		ArrayList<AddCartDTO> list2 = (ArrayList) session.getAttribute("list");
-		if (list2 != null) {
+		if (list2 != null&& uId!=null) {
+		
 			for (int i = 0; i < list2.size(); i++) {
 				String pId = list2.get(i).getpId();
 				String size = list2.get(i).getSize();
@@ -71,7 +72,12 @@
 			session.removeAttribute("list");
 		}
 
-		ArrayList<AddCartDTO> list = cartDao.getInfo(uId);
+		ArrayList<AddCartDTO> list;
+		if(uId!=null){
+			list = cartDao.getInfo(uId);
+		}else{
+			list = list2;	
+		}
 		int count = 0;
 		String test = (String) session.getAttribute("test");
 	%>
@@ -214,7 +220,7 @@
 						<input type="hidden" id="uid" value ="<%=uId%>">
 						<input type="hidden" class="block2-name" id="Context">
 						<%
-							if (list.size() != 0) {
+							if (list!=null&&list.size() != 0) {
 								for (int i = 0; i < list.size(); i++) {
 									ProductDTO pDto = pDao.getInfo(list.get(i).getpId());
 						%>

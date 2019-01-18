@@ -40,7 +40,7 @@
 	<!-- Header -->
 	<jsp:include page="includes/header.jsp" flush="false"/>
 	<!-- Title Page -->
-	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/headimg3.jpg);">
+	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/heading-pages-06.jpg);">
 		<h2 class="l-text2 t-center">
 			Contact
 		</h2>
@@ -60,7 +60,7 @@
 					<div id="map" style="width:100%;height:400px;"></div>
 					<script>
 var mapOptions = {
-    center: new naver.maps.LatLng(37.3595704, 127.105399),
+    center: new naver.maps.LatLng(37.476764, 126.885535),
     zoom: 10
 };
 
@@ -310,9 +310,6 @@ var map = new naver.maps.Map('map', mapOptions);
 			dropdownParent: $('#dropDownSelect2')
 		});
 	</script>
-<!--===============================================================================================-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-	<script src="js/map-custom.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 

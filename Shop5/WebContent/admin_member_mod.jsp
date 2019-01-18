@@ -68,7 +68,6 @@
 							<li class="p-t-6 p-b-8 bo7"><a href="admin-product.jsp"
 								class="s-text13 p-t-5 p-b-5"> 상품관리 </a></li>
 
-
 							<li class="p-t-6 p-b-8 bo7"><a href="admin-statistics.jsp"
 								class="s-text13 p-t-5 p-b-5"> 통계 </a></li>
 						</ul>
@@ -253,9 +252,6 @@
 			dropdownParent: $('#dropDownSelect2')
 		});
 	</script>
-<!--===============================================================================================-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-	<script src="js/map-custom.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 

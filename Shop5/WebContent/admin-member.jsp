@@ -4,12 +4,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-
+	
+	
 	MemberDAO dao = new MemberDAO();	
 	ArrayList<MemberDTO> member = dao.select();
 	int pages = member.size() /10 + 1;
 	int pageNum = 1;
 	
+	String admin = (String)session.getAttribute("admin");
+	   if(admin==null){
+		   out.println("<script type='text/javascript'>");
+		   out.println("alert('관리자 계정으로 로그인 후 이용 해주시기 바랍니다.');");
+		   out.println("location.href='index.jsp';");
+		   out.println("</script>");
+	   }
 %>
 <!DOCTYPE html>
 <html>
@@ -91,7 +99,7 @@
 						</div>
 					</div>
 					<br>
-					<div style="background: white; width: 900px; height: auto;" id="memTb">
+					<div style="background: white; width: 900px; height: 800px;" id="memTb">
 				
 					  <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 					  <script type="text/javascript">
@@ -160,9 +168,6 @@
 			dropdownParent: $('#dropDownSelect2')
 		});
 	</script>
-<!--===============================================================================================-->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
-	<script src="js/map-custom.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
 
