@@ -50,11 +50,11 @@ public class CheckOutDAO {
 		ArrayList<CheckOutDTO> list = new ArrayList<>();
 		while (rs.next()) {
 			list.add(new CheckOutDTO(
-						rs.getString("uid"),
-						rs.getString("pid"),
-						rs.getString("size"),
-						rs.getString("count")					
-					));		
+				rs.getString("uid"),
+				rs.getString("pid"),
+				rs.getString("size"),
+				rs.getString("count")					
+			));		
 		}
 		return list;
 	}

@@ -189,7 +189,7 @@ public class ProductDAO {
 		   pstmt.setString(7, dto.getSizeL());
 		   pstmt.setString(8, dto.getSizeXL());
 		   pstmt.setString(9, dto.getCategory());
-		   pstmt.setString(10, null);
+		   pstmt.setString(10, "0");
 		   
 		   pstmt.executeUpdate();
 		   

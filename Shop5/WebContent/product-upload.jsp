@@ -28,7 +28,7 @@
 	 String sizeL = "";
 	 String sizeXL = "";
 	 
-	 String path = "images/clothes";
+	 String path = "C:\\Users\\user\\git\\shopping\\Shop5\\WebContent\\images\\clothes\\";
 	 
 	 ProductDAO dao = new ProductDAO();
 	 ProductDTO dto = null;
@@ -55,15 +55,13 @@
 		  String file1 = (String)files.nextElement();
 		  filename[i] = multi.getFilesystemName(file1);
 		  
-	  }
-	  
-	  
+	  }  
 	 
 	 dao.addProduct(dto);
 	 for(int i = 0; i < 3; i++){
 		 
 		  File file = new File(path + filename[i]);
-		  File fileN = new File(path + pId + "_" + (i+1) + ".jpg");
+		  File fileN = new File(path + pId + "_" + (3-i) + ".jpg");
 			
 		  if(file.exists()) {
 			file.renameTo(fileN);
@@ -72,7 +70,7 @@
 	 
 %>
 <script>
-	alert("<%=dto.toString()%>상품 등록에 성공하였습니다.")
+	alert("상품 등록에 성공하였습니다.")
 	location.href = "admin-product.jsp"
 </script>
 

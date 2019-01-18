@@ -72,7 +72,7 @@
 						</div>
 
 						<div class="bo4 of-hidden size15 m-b-20">
-							<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="pw" placeholder="PW">
+							<input class="sizefull s-text7 p-l-22 p-r-22" type="password" name="pw" placeholder="PW">
 						</div>
 
 						<div class="bo4 of-hidden size15 m-b-20">

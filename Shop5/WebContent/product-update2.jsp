@@ -28,7 +28,7 @@
 	 String sizeL = "";
 	 String sizeXL = "";
 	 
-	 String path = "images/clothes";
+	 String path = "C:\\Users\\user\\git\\shopping\\Shop5\\WebContent\\images\\clothes\\";
 	 
 	 ProductDAO dao = new ProductDAO();
 	 ProductDTO dto = null;
@@ -65,7 +65,7 @@
 	 for(int i = 0; i < 3; i++){
 		 
 		  File file = new File(path + filename[i]);
-		  File fileN = new File(path + pId + "_" + (i+1) + ".jpg");
+		  File fileN = new File(path + pId + "_" + (3-i) + ".jpg");
 			
 		  if(file.exists()) {
 			out.print(filename[i] + "<br>");
