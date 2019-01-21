@@ -154,7 +154,7 @@
   							<div class="modal-content">
       							<div class="modal-header">
         							<h5 class="modal-title" id="exampleModalCenterTitle">게시물 등록</h5>
-        							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        							<button type="button" class="he close" data-dismiss="modal" aria-label="Close">
           								<span aria-hidden="true">&times;</span>
         							</button>
      				 			</div>
@@ -420,6 +420,15 @@
 		$(".selection-2").select2({
 			minimumResultsForSearch: 20,
 			dropdownParent: $('#dropDownSelect2')
+		});
+	</script>
+	
+	<script type="text/javascript">
+		$('.he').each(function(){
+			var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "게시글 등록에 성공하였습니다.", "성공");
+			});
 		});
 	</script>
 <!--===============================================================================================-->

@@ -114,11 +114,11 @@
 
 
 					<br>
-					<table border='1'>
-						<tr>
-							<th width='3%' style="text-align: center;">번호</th>
+					<table class="table-shopping-cart table-hover">
+						<tr class="table-head">
+							<th width='6%' style="text-align: center;">번호</th>
 							<th width='10%'>상품이미지</th>
-							<th width='10%'>상품명</th>
+							<th width='15%'>상품명</th>
 							<th width='7%'>사이즈</th>
 							<th width='8%'>가격</th>
 							<th width='10%' style="text-align: center;">가격</th>
@@ -137,7 +137,7 @@
 									dto = pDao.getInfo(list.get(i).getPid());
 						%>
 
-						<tr>
+						<tr class="table-row">
 							<td style="text-align: center;"><%=i%></td>
 							<!-- 번호 -->
 							<td><img alt="" src="images/clothes/<%=dto.getPId()%>_1.jpg" style="max-width: 100%; height: auto;"></td>
