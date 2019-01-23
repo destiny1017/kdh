@@ -11,10 +11,25 @@
 
 <form action="insert.jsp" id="form">
 <h3>상품 정보 입력</h3>
-id : <input type="text" name="id" id="id"><br>
-상품명 : <input type="text" name="name" id="name"><br>
-상품상세 : <input type="text" name="detail" id="detail"><br>
-가격 : <input type="text" name="price" id="price"><br>
+<table>
+	<tr>
+		<td>id : </td>
+		<td><input type="text" name="id" id="id"></td>
+	</tr>
+	<tr>
+		<td>상품명 : </td>
+		<td><input type="text" name="name" id="name"></td>
+	</tr>
+	<tr>
+		<td>상품상세 : </td>
+		<td><input type="text" name="detail" id="detail"></td>		
+	</tr>
+	<tr>
+		<td>가격 : </td>
+		<td><input type="text" name="price" id="price"></td>		
+	</tr>
+</table>
+<br>
 <button type="button" onclick="check()">등록</button>
 </form>
 
