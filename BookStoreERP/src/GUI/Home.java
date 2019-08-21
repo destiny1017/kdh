@@ -29,7 +29,7 @@ public class Home extends JFrame implements ActionListener {
 
 	public Home() {
 		
-		//UI세팅
+		//UI�꽭�똿
 		setBounds(200,100,1200,850);	
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -115,13 +115,13 @@ public class Home extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		//login/join 버튼 클릭 시 액션
+		//login/join 踰꾪듉 �겢由� �떆 �븸�뀡
 		if(e.getSource() == btnLogin) {
 			
 			if(dao.checkId(textField.getText(), passwordField.getText())) {			
-				getContentPane().removeAll();	//프레임 내의 컴포넌트를 모두 삭제
-				getContentPane().add(new MainPan());	//메인메뉴 패널을 추가
-				revalidate();	//변경 내용으로 새로고침
+				getContentPane().removeAll();	//�봽�젅�엫 �궡�쓽 而댄룷�꼳�듃瑜� 紐⑤몢 �궘�젣
+				getContentPane().add(new MainPan());	//硫붿씤硫붾돱 �뙣�꼸�쓣 異붽�
+				revalidate();	//蹂�寃� �궡�슜�쑝濡� �깉濡쒓퀬移�
 				repaint();
 			}
 			
@@ -133,4 +133,5 @@ public class Home extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 		new Home();
 	}
+	//qweqwe;;asdtest
 }
